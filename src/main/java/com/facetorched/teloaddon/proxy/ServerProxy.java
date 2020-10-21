@@ -1,6 +1,5 @@
 package com.facetorched.teloaddon.proxy;
 
-import com.dunk.tfc.TileEntities.TEIngotPile;
 import com.facetorched.teloaddon.tileentities.TeloTEIngotPile;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -11,8 +10,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		//This probably will stay empty
-		GameRegistry.registerTileEntity(TeloTEIngotPile.class, "teloIngotPile");
+		GameRegistry.registerTileEntity(TeloTEIngotPile.class, "teloIngotPile"); //register tile entity on the server
 	}
 
 	@Override

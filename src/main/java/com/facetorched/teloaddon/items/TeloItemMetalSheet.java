@@ -1,6 +1,7 @@
 package com.facetorched.teloaddon.items;
 
 import com.dunk.tfc.Items.ItemMetalSheet;
+import com.facetorched.teloaddon.TeloMod;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,6 +15,6 @@ public class TeloItemMetalSheet extends ItemMetalSheet{
 	@Override
 	public void registerIcons(IIconRegister register)
 	{
-		this.itemIcon = register.registerIcon(getIconString());
+		this.itemIcon = register.registerIcon(TeloMod.MODID+":"+getIconString());
 	}
 }

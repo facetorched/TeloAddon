@@ -1,4 +1,4 @@
-package com.facetorched.teloaddon;
+package com.facetorched.teloaddon.items;
 
 import com.dunk.tfc.api.HeatIndex;
 
@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.dunk.tfc.api.HeatRaw;
 import com.dunk.tfc.api.HeatRegistry;
+import com.facetorched.teloaddon.TeloItemSetup;
 
 public class TeloItemHeat {
 	public static void setupItemHeat()

@@ -3,6 +3,7 @@ package com.facetorched.teloaddon.items;
 import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.ItemIngot;
 import com.facetorched.teloaddon.TeloBlockSetup;
+import com.facetorched.teloaddon.TeloMod;
 import com.facetorched.teloaddon.tileentities.TeloTEIngotPile;
 
 import cpw.mods.fml.relauncher.Side;
@@ -21,7 +22,7 @@ public class TeloItemIngot extends ItemIngot{
 	@Override
 	public void registerIcons(IIconRegister register)
 	{
-		this.itemIcon = register.registerIcon(getIconString());
+		this.itemIcon = register.registerIcon(TeloMod.MODID+":"+getIconString());
 	}
 	
 	private boolean createPile(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, int l)
