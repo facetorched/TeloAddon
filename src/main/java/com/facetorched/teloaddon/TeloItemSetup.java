@@ -5,8 +5,10 @@ import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.ItemMetalSheet;
 import com.dunk.tfc.api.Enums.EnumSize;
-import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.Core.Metal.Alloy;
+import com.facetorched.teloaddon.items.ItemBottle;
+import com.facetorched.teloaddon.items.ItemCeramicBucket;
+import com.facetorched.teloaddon.items.ItemWoodenBucket;
 import com.facetorched.teloaddon.items.TeloItemGem;
 import com.facetorched.teloaddon.items.TeloItemIngot;
 import com.facetorched.teloaddon.items.TeloItemMeltedMetal;
@@ -44,6 +46,19 @@ public class TeloItemSetup {
 	public static Item glycerolBottle;
 	public static Item nitroglycerinBottle;
 	
+	public static Item biodieselBottle;
+	public static Item plantOilBottle;
+	public static Item ethanolBottle;
+	public static Item creosoteBottle;
+	public static Item biodieselWoodenBucket;
+	public static Item plantOilWoodenBucket;
+	public static Item ethanolWoodenBucket;
+	public static Item creosoteWoodenBucket;
+	public static Item biodieselCeramicBucket;
+	public static Item plantOilCeramicBucket;
+	public static Item ethanolCeramicBucket;
+	public static Item creosoteCeramicBucket;
+	
 	public static Metal ALUMINUM;
 	
 	public static void setup() {
@@ -61,7 +76,7 @@ public class TeloItemSetup {
 			fluorite = registryHelper(new TeloItemGem(),"Fluorite");
 		}
 		if(Config.addUranium) {
-			ammoniumDiurinate = registryHelper(new TeloItemTerra(),"Ammonium_Diurinate");
+			ammoniumDiurinate = registryHelper(new TeloItemTerra(),"Ammonium_Diuranate");
 			enrichedUraniumPowder = registryHelper(new TeloItemTerra(),"Enriched_Uranium_Powder");
 			pitchblendePowder = registryHelper(new TeloItemTerra(),"Pitchblende_Powder");
 			uraniumHexafluoride = registryHelper(new TeloItemTerra(),"Uranium_Hexafluoride");
@@ -77,13 +92,30 @@ public class TeloItemSetup {
 		if (Config.addLye)
 			lye = registryHelper(new TeloItemTerra(),"Lye");
 		if (Config.addFluids) {
-			hydrofluoricAcidBottle = registryHelper(new TeloItemTerra().setContainerItem(ItemSetup.glassBottle),"Hydrofluoric_Acid_Bottle");
-			nitricAcidBottle = registryHelper(new TeloItemTerra().setContainerItem(ItemSetup.glassBottle),"Nitric_Acid_Bottle");
-			glycerolBottle = registryHelper(new TeloItemTerra().setContainerItem(ItemSetup.glassBottle),"Glycerol_Bottle");
-			nitroglycerinBottle = registryHelper(new TeloItemTerra().setContainerItem(ItemSetup.glassBottle),"Nitroglycerin_Bottle");
+			hydrofluoricAcidBottle = registryHelper(new ItemBottle(),"Hydrofluoric_Acid_Bottle");
+			nitricAcidBottle = registryHelper(new ItemBottle(),"Nitric_Acid_Bottle");
+			glycerolBottle = registryHelper(new ItemBottle(),"Glycerol_Bottle");
+			nitroglycerinBottle = registryHelper(new ItemBottle(),"Nitroglycerin_Bottle");
 		}
 		
 		registerMetals();
+	}
+	public static void setupIE() {
+		//here we use the color of the fluid block for the color
+		biodieselBottle = registryHelper(new ItemBottle("immersiveengineering:textures/blocks/fluid/biodiesel_still.png"),"Biodiesel_Bottle");
+		plantOilBottle = registryHelper(new ItemBottle("immersiveengineering:textures/blocks/fluid/plantoil_still.png"),"Plant_Oil_Bottle");
+		ethanolBottle = registryHelper(new ItemBottle("immersiveengineering:textures/blocks/fluid/ethanol_still.png"),"Ethanol_Bottle");
+		creosoteBottle = registryHelper(new ItemBottle("immersiveengineering:textures/blocks/fluid/creosote_still.png"),"Creosote_Bottle");
+		
+		biodieselWoodenBucket = registryHelper(new ItemWoodenBucket("immersiveengineering:textures/blocks/fluid/biodiesel_still.png"),"Biodiesel_Wooden_Bucket");
+		plantOilWoodenBucket = registryHelper(new ItemWoodenBucket("immersiveengineering:textures/blocks/fluid/plantoil_still.png"),"Plant_Oil_Wooden_Bucket");
+		ethanolWoodenBucket = registryHelper(new ItemWoodenBucket("immersiveengineering:textures/blocks/fluid/ethanol_still.png"),"Ethanol_Wooden_Bucket");
+		creosoteWoodenBucket = registryHelper(new ItemWoodenBucket("immersiveengineering:textures/blocks/fluid/creosote_still.png"),"Creosote_Wooden_Bucket");
+		
+		biodieselCeramicBucket = registryHelper(new ItemCeramicBucket("immersiveengineering:textures/blocks/fluid/biodiesel_still.png"),"Biodiesel_Ceramic_Bucket");
+		plantOilCeramicBucket = registryHelper(new ItemCeramicBucket("immersiveengineering:textures/blocks/fluid/plantoil_still.png"),"Plant_Oil_Ceramic_Bucket");
+		ethanolCeramicBucket = registryHelper(new ItemCeramicBucket("immersiveengineering:textures/blocks/fluid/ethanol_still.png"),"Ethanol_Ceramic_Bucket");
+		creosoteCeramicBucket = registryHelper(new ItemCeramicBucket("immersiveengineering:textures/blocks/fluid/creosote_still.png"),"Creosote_Ceramic_Bucket");
 	}
 	public static void registerMetals() {
 		if(Config.addAluminum) {
