@@ -11,6 +11,7 @@ public class ItemBottle extends ItemFluidContainer{
 	public ItemBottle(){
 		super();
 		this.setContainerItem(ItemSetup.glassBottle);
+		
 	}
 	public ItemBottle(String filepath){
 		super();

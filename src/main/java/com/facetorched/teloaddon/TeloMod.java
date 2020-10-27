@@ -34,9 +34,9 @@ public class TeloMod
     {
     	Config.preInit(event.getModConfigurationDirectory());
     	Config.reload();
+    	TeloFluidSetup.setup();
     	TeloItemSetup.setup();
     	TeloBlockSetup.setup();
-    	TeloFluidSetup.setup();
     	proxy.preInit(event);
     }
 

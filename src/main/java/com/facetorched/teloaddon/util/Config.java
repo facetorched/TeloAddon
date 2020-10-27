@@ -3,8 +3,6 @@ package com.facetorched.teloaddon.util;
 import java.io.File;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.StringUtils;
-
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {

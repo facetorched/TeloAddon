@@ -23,10 +23,10 @@ public class TeloFluidSetup {
 
 	public static void setup() {
 		if (Config.addFluids) {
-			hydrofluoricAcid = registryHelper(new FluidBaseTFC("hydrofluoricacid"),0xc19fe4,TeloItemSetup.hydrofluoricAcidBottle).setTemperature(386); //can't go in barrels
-			nitricAcid = registryHelper(new FluidBaseTFC("nitricacid"),0xeabb4d,TeloItemSetup.nitricAcidBottle).setTemperature(386); //can't go in barrels
-			glycerol = registryHelper(new FluidBaseTFC("glycerol"),0xe9ece9,TeloItemSetup.glycerolBottle);
-			nitroglycerin = registryHelper(new FluidBaseTFC("nitroglycerin"),0xf1d5ce,TeloItemSetup.nitroglycerinBottle);
+			hydrofluoricAcid = registryHelper(new FluidBaseTFC("hydrofluoricacid"),0xc19fe4).setTemperature(386); //can't go in barrels
+			nitricAcid = registryHelper(new FluidBaseTFC("nitricacid"),0xeabb4d).setTemperature(386); //can't go in barrels
+			glycerol = registryHelper(new FluidBaseTFC("glycerol"),0xe9ece9);
+			nitroglycerin = registryHelper(new FluidBaseTFC("nitroglycerin"),0xf1d5ce);
 		}
 		if (Config.moreOil && !(Config.plantOilIE && Loader.isModLoaded("ImmersiveEngineering"))) {
 			TEHopper.registerPressableItem(TFCItems.coconutMeat,TFCFluids.OLIVEOIL,0.64f,10);

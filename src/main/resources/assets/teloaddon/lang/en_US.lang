@@ -1,6 +1,6 @@
 
 
-
+item.Alumina.name=Alumina
 item.Aluminum_Ingot.name=Aluminum Ingot
 item.Aluminum_Double_Ingot.name=Aluminum Double Ingot
 item.Aluminum_Unshaped.name=Unshaped Aluminum
@@ -34,6 +34,20 @@ item.Biodiesel_Bottle.name=Biodiesel Bottle
 item.Plant_Oil_Bottle.name=Plant Oil Bottle
 item.Ethanol_Bottle.name=Ethanol Bottle
 item.Creosote_Bottle.name=Creosote Bottle
+
+item.Biodiesel_Wooden_Bucket.name=Biodiesel Wooden Bucket
+item.Plant_Oil_Wooden_Bucket.name=Plant Oil Wooden Bucket
+item.Ethanol_Wooden_Bucket.name=Ethanol Wooden Bucket
+item.Creosote_Wooden_Bucket.name=Creosote Wooden Bucket
+
+item.Biodiesel_Ceramic_Bucket.name=Biodiesel Ceramic Bucket
+item.Plant_Oil_Ceramic_Bucket.name=Plant Oil Ceramic Bucket
+item.Ethanol_Ceramic_Bucket.name=Ethanol Ceramic Bucket
+item.Creosote_Ceramic_Bucket.name=Creosote Ceramic Bucket
+
+item.Olive_Oil_Bottle.name=Olive Oil Bottle
+item.Olive_Oil_Wooden_Bucket.name=Olive Oil Wooden Bucket
+item.Olive_Oil_Ceramic_Bucket.name=Olive Oil Ceramic Bucket
 
 fluid.hydrofluoricacid=Hydrofluoric Acid
 fluid.nitricacid=Nitric Acid

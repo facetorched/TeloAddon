@@ -44,7 +44,7 @@ public class ImmersiveEngineering {
     			}
     			
     			TeloItemSetup.setupIE();
-    			
+    			/*
     			registerContainerHelper(IEContent.fluidBiodiesel, 250, TeloItemSetup.biodieselBottle);
     			registerContainerHelper(IEContent.fluidPlantoil, 250, TeloItemSetup.plantOilBottle);
     			registerContainerHelper(IEContent.fluidEthanol, 250, TeloItemSetup.ethanolBottle);
@@ -59,6 +59,7 @@ public class ImmersiveEngineering {
     			registerContainerHelper(IEContent.fluidPlantoil, 1000, TeloItemSetup.plantOilCeramicBucket);
     			registerContainerHelper(IEContent.fluidEthanol, 1000, TeloItemSetup.ethanolCeramicBucket);
     			registerContainerHelper(IEContent.fluidCreosote, 1000, TeloItemSetup.creosoteCeramicBucket);
+    			*/
     			//System.out.println("poggers"+IEContent.fluidBiodiesel.getIcon().getIconName());
     		}
     		catch(Exception e) {

@@ -7,11 +7,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public abstract class ItemFluidContainer extends ItemTerra{
 	public String fluidTextureLocation;
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(ItemStack stack, int pass)
@@ -34,5 +35,9 @@ public abstract class ItemFluidContainer extends ItemTerra{
 	public boolean requiresMultipleRenderPasses()
 	{
 		return true;
+	}
+	public ItemFluidContainer registerContainer(Fluid fluid, int amount) {
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, amount), new ItemStack(this),new ItemStack(this.getContainerItem()));
+		return this;
 	}
 }
