@@ -20,7 +20,7 @@ public class Config {
 	public static boolean addFluids = true;
 	public static boolean moreOil = true;
 	public static boolean plantOilIE = true;
-	public static String dieselGeneratorFuels = "biodiesel,1000\nethanol,200\nplantoil,200\noliveoil,200\ncreosote,20";
+	public static String [] dieselGeneratorFuels = {"biodiesel,1000","ethanol,200","plantoil,200","oliveoil,200","creosote,20"};
 	public static HashMap<String,Integer> dieselGeneratorFuelsMap = new HashMap<String,Integer>();
 	
 	public static void preInit(File configDir)
@@ -43,16 +43,15 @@ public class Config {
 		addFluids = config.getBoolean("addFluids", "Fluids", true, "Set to false to prevent new fluids from being added to the game");
 		moreOil = config.getBoolean("moreOil", "Fluids", true, "Coconuts and soybeans can make olive oil. Set false to prevent this");
 		plantOilIE = config.getBoolean("plantOilIE","Immersive Engineering",true,"If Immersive Engineering is loaded, Coconuts and soybeans make plant oil. This overrides \"moreOil\"");
-		dieselGeneratorFuels = config.getString("dieselGeneratorFuels", "Immersive Engineering", "\nbiodiesel,1000\nethanol,200\nplantoil,200\noliveoil,200\ncreosote,20", 
+		dieselGeneratorFuels = config.getStringList("dieselGeneratorFuels", "Immersive Engineering" ,dieselGeneratorFuels,
 				"If Immersive engineering is loaded, these are valid fuels. Format each line: fluidname,burnduration. Any value above 1000 results in infinite burn duration");
 		dieselGeneratorFuelsMap = configStringParser(dieselGeneratorFuels);
 		if (config.hasChanged()) config.save();
 	}
-	public static HashMap<String,Integer> configStringParser(String input) {
+	public static HashMap<String,Integer> configStringParser(String[] input) {
 		HashMap<String,Integer> output = new HashMap<String,Integer>();
-		String lines[] = input.trim().split("\\r?\\n");
-		for(String line : lines) {
-			String values[] =  line.split(",");
+		for(String line : input) {
+			String values[] =  line.trim().split(",");
 			try{
 				output.put(values[0].trim(),Integer.parseInt(values[1].trim()));
 			}
