@@ -10,10 +10,12 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 public class ItemCeramicBucket extends ItemFluidContainer{
 	public ItemCeramicBucket(){
 		super();
+		stackable=false;
 		this.setContainerItem(ItemSetup.clayBucketEmpty);
 	}
 	public ItemCeramicBucket(String filepath){
 		super();
+		stackable=false;
 		this.setContainerItem(ItemSetup.clayBucketEmpty);
 		this.fluidTextureLocation = filepath;
 	}

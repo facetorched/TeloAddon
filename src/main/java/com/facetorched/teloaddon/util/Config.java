@@ -20,6 +20,9 @@ public class Config {
 	public static boolean addFluids = true;
 	public static boolean moreOil = true;
 	public static boolean plantOilIE = true;
+	public static boolean cokeOvenPitch = true;
+	public static boolean addCreosoteFluid = true;
+	public static boolean hotspringBucket = true;
 	public static String [] dieselGeneratorFuels = {"biodiesel,1000","ethanol,200","plantoil,200","oliveoil,200","creosote,20"};
 	public static HashMap<String,Integer> dieselGeneratorFuelsMap = new HashMap<String,Integer>();
 	
@@ -42,7 +45,10 @@ public class Config {
 		addLye = config.getBoolean("addLye", "Items", true, "Set to false to prevent lye item from being added to the game");
 		addFluids = config.getBoolean("addFluids", "Fluids", true, "Set to false to prevent new fluids from being added to the game");
 		moreOil = config.getBoolean("moreOil", "Fluids", true, "Coconuts and soybeans can make olive oil. Set false to prevent this");
+		hotspringBucket = config.getBoolean("hotSpringBucket", "Fluids", true, "Set false to disable picking up hotsprings with red steel buckets");
 		plantOilIE = config.getBoolean("plantOilIE","Immersive Engineering",true,"If Immersive Engineering is loaded, Coconuts and soybeans make plant oil. This overrides \"moreOil\"");
+		cokeOvenPitch = config.getBoolean("cokeOvenPitch", "Immersive Engineering", true, "If Immersive Engineering is loaded, the coke oven outputs pitch instead of creosote");
+		addCreosoteFluid = config.getBoolean("addCreosoteFluid", "Immersive Engineering", true, "If Immersive Engineering is loaded, a new creosote fluid is added that is obtained by distillation of pitch");
 		dieselGeneratorFuels = config.getStringList("dieselGeneratorFuels", "Immersive Engineering" ,dieselGeneratorFuels,
 				"If Immersive engineering is loaded, these are valid fuels. Format each line: fluidname,burnduration. Any value above 1000 results in infinite burn duration");
 		dieselGeneratorFuelsMap = configStringParser(dieselGeneratorFuels);

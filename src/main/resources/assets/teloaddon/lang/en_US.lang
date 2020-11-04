@@ -49,7 +49,14 @@ item.Olive_Oil_Bottle.name=Olive Oil Bottle
 item.Olive_Oil_Wooden_Bucket.name=Olive Oil Wooden Bucket
 item.Olive_Oil_Ceramic_Bucket.name=Olive Oil Ceramic Bucket
 
+item.Distilled_Water_Bottle.name=Distilled Water Bottle
+item.Distilled_Water_Wooden_Bucket.name=Distilled Water Wooden Bucket
+item.Distilled_Water_Ceramic_Bucket.name=Distilled Water Ceramic Bucket
+
+item.Hotspring_Red_Steel_Bucket.name=Hotspring Red Steel Bucket
+
 fluid.hydrofluoricacid=Hydrofluoric Acid
 fluid.nitricacid=Nitric Acid
 fluid.glycerol=Glycerol
 fluid.nitroglycerin=Nitroglycerin
+fluid.telocreosote=Creosote Oil

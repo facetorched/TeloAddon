@@ -17,7 +17,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = TeloMod.MODID, version = TeloMod.VERSION, dependencies = "required-after:terrafirmacraftplus;after:immersiveengineering;")
+@Mod(modid = TeloMod.MODID, version = TeloMod.VERSION, dependencies = "required-after:terrafirmacraftplus;after:ImmersiveEngineering;")
 public class TeloMod
 {
     public static final String MODID = "teloaddon";
@@ -37,6 +37,7 @@ public class TeloMod
     	TeloFluidSetup.setup();
     	TeloItemSetup.setup();
     	TeloBlockSetup.setup();
+    	ImmersiveEngineering.preInit();
     	proxy.preInit(event);
     }
 
@@ -50,7 +51,7 @@ public class TeloMod
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-    	ImmersiveEngineering.load();
+    	ImmersiveEngineering.postInit();
     	proxy.postInit(event);
     }
     

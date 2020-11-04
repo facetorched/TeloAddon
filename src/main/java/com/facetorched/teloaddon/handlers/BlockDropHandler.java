@@ -33,6 +33,7 @@ public class BlockDropHandler {
 				world.spawnEntityInWorld(item);
 			}
 		}
+		//System.out.println("test1"+);
 	}
 	//Method to get random gem. Copied from tfc src
 	public static ItemStack teloRandomGem(Random random, int rockType)

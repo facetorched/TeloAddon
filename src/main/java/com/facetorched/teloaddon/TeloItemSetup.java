@@ -6,6 +6,8 @@ import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.Core.Metal.MetalRegistry;
 import com.dunk.tfc.Items.ItemMetalSheet;
 import com.dunk.tfc.api.Enums.EnumSize;
+import com.dunk.tfc.BlockSetup;
+import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.Core.Metal.Alloy;
 import com.facetorched.teloaddon.items.ItemBottle;
 import com.facetorched.teloaddon.items.ItemCeramicBucket;
@@ -15,12 +17,16 @@ import com.facetorched.teloaddon.items.TeloItemIngot;
 import com.facetorched.teloaddon.items.TeloItemMeltedMetal;
 import com.facetorched.teloaddon.items.TeloItemMetalSheet;
 import com.facetorched.teloaddon.items.TeloItemMetalSheet2x;
+import com.facetorched.teloaddon.items.TeloItemSteelBucket;
 import com.facetorched.teloaddon.items.TeloItemTerra;
 import com.facetorched.teloaddon.util.Config;
 
 import blusunrize.immersiveengineering.common.IEContent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class TeloItemSetup {
 	public static Item alumina;
@@ -65,6 +71,12 @@ public class TeloItemSetup {
 	public static Item oliveOilWoodenBucket;
 	public static Item oliveOilCeramicBucket;
 	
+	public static Item distilledWaterBottle;
+	public static Item distilledWaterWoodenBucket;
+	public static Item distilledWaterCeramicBucket;
+	
+	public static Item hotspringRedSteelBucket;
+	
 	public static Metal ALUMINUM;
 	
 	public static void setup() {
@@ -76,6 +88,13 @@ public class TeloItemSetup {
 			aluminumSheet = registryHelper((ItemMetalSheet)new TeloItemMetalSheet(20).setMetal("Aluminum", 200),"Aluminum_Sheet");
 			aluminumUnshaped = registryHelper(new TeloItemMeltedMetal().setHasSolidLiquidStates(true).setMaxUnits(100).setCounter(1).setBaseDamage(0),"Aluminum_Unshaped");
 			bauxiteOre = registryHelper(new TeloItemTerra(),"Bauxite_Ore");
+			
+			OreDictionary.registerOre("ingotDoubleAluminum",aluminumIngot2x);
+			OreDictionary.registerOre("plateDoubleAluminum",aluminumSheet2x);
+			OreDictionary.registerOre("ingotAluminum",aluminumIngot);
+			OreDictionary.registerOre("plateAluminum",aluminumSheet);
+			OreDictionary.registerOre("ingotAluminum",aluminumIngot);
+			OreDictionary.registerOre("oreAluminum",bauxiteOre);
 		}
 		if(Config.addFluorite) {
 			fluoritePowder = registryHelper(new TeloItemTerra(),"Fluorite_Powder");
@@ -103,30 +122,50 @@ public class TeloItemSetup {
 			glycerolBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.glycerol, 250),"Glycerol_Bottle");
 			nitroglycerinBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.nitroglycerin, 250),"Nitroglycerin_Bottle");
 		}
+		//Just some fluid container additions. should be pretty benign
 		oliveOilBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.OLIVEOIL, 250),"Olive_Oil_Bottle");
 		oliveOilWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Wooden_Bucket");
 		oliveOilCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Ceramic_Bucket");
 		
+		distilledWaterBottle = registryHelper(new ItemBottle("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 250),"Distilled_Water_Bottle");
+		distilledWaterWoodenBucket = registryHelper(new ItemCeramicBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Wooden_Bucket");
+		distilledWaterCeramicBucket = registryHelper(new ItemWoodenBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Ceramic_Bucket");
+		
+		if(Config.hotspringBucket) {
+			hotspringRedSteelBucket = registryHelper(new TeloItemSteelBucket(BlockSetup.hotWater).setContainerItem(ItemSetup.redSteelBucketEmpty).registerContainer(TFCFluids.HOTWATER,1000),"Hotspring_Red_Steel_Bucket");
+		}
 		
 		registerMetals();
 	}
 	public static void setupIE() {
-		//here we use the color of the fluid block for the color
+		Fluid creosote = null;
 		String path = "immersiveengineering:textures/blocks/fluid/";
+		
+		//should we use IE creosote or TeloAddon creosote?
+		if (Config.addCreosoteFluid) {
+			creosote = TeloFluidSetup.teloCreosote;
+		}
+		else if (!Config.cokeOvenPitch) {
+			 creosote = IEContent.fluidCreosote;
+		}
+		if (creosote!=null) {
+			creosoteBottle = registryHelper(new ItemBottle(path+"creosote_still.png").registerContainer(creosote, 250),"Creosote_Bottle");
+			creosoteWoodenBucket = registryHelper(new ItemWoodenBucket(path+"creosote_still.png").registerContainer(creosote, 1000),"Creosote_Wooden_Bucket");
+			creosoteCeramicBucket = registryHelper(new ItemCeramicBucket(path+"creosote_still.png").registerContainer(creosote, 1000),"Creosote_Ceramic_Bucket");
+		}
+		//ItemBottle() takes a texture path to the fluid block to use as the fluid color in the case that the fluid color is not defined
+
 		biodieselBottle = registryHelper(new ItemBottle(path+"biodiesel_still.png").registerContainer(IEContent.fluidBiodiesel, 250),"Biodiesel_Bottle");
 		plantOilBottle = registryHelper(new ItemBottle(path+"plantoil_still.png").registerContainer(IEContent.fluidPlantoil, 250),"Plant_Oil_Bottle");
 		ethanolBottle = registryHelper(new ItemBottle(path+"ethanol_still.png").registerContainer(IEContent.fluidEthanol, 250),"Ethanol_Bottle");
-		creosoteBottle = registryHelper(new ItemBottle(path+"creosote_still.png").registerContainer(IEContent.fluidCreosote, 250),"Creosote_Bottle");
 		
 		biodieselWoodenBucket = registryHelper(new ItemWoodenBucket(path+"biodiesel_still.png").registerContainer(IEContent.fluidBiodiesel, 1000),"Biodiesel_Wooden_Bucket");
 		plantOilWoodenBucket = registryHelper(new ItemWoodenBucket(path+"plantoil_still.png").registerContainer(IEContent.fluidPlantoil, 1000),"Plant_Oil_Wooden_Bucket");
 		ethanolWoodenBucket = registryHelper(new ItemWoodenBucket(path+"ethanol_still.png").registerContainer(IEContent.fluidEthanol, 1000),"Ethanol_Wooden_Bucket");
-		creosoteWoodenBucket = registryHelper(new ItemWoodenBucket(path+"creosote_still.png").registerContainer(IEContent.fluidCreosote, 1000),"Creosote_Wooden_Bucket");
 		
 		biodieselCeramicBucket = registryHelper(new ItemCeramicBucket(path+"biodiesel_still.png").registerContainer(IEContent.fluidBiodiesel, 1000),"Biodiesel_Ceramic_Bucket");
 		plantOilCeramicBucket = registryHelper(new ItemCeramicBucket(path+"plantoil_still.png").registerContainer(IEContent.fluidPlantoil, 1000),"Plant_Oil_Ceramic_Bucket");
 		ethanolCeramicBucket = registryHelper(new ItemCeramicBucket(path+"ethanol_still.png").registerContainer(IEContent.fluidEthanol, 1000),"Ethanol_Ceramic_Bucket");
-		creosoteCeramicBucket = registryHelper(new ItemCeramicBucket(path+"creosote_still.png").registerContainer(IEContent.fluidCreosote, 1000),"Creosote_Ceramic_Bucket");
 	}
 	public static void registerMetals() {
 		if(Config.addAluminum) {

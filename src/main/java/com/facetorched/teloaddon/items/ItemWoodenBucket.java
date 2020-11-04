@@ -10,10 +10,12 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 public class ItemWoodenBucket extends ItemFluidContainer{
 	public ItemWoodenBucket(){
 		super();
+		stackable=false;
 		this.setContainerItem(ItemSetup.woodenBucketEmpty);
 	}
 	public ItemWoodenBucket(String filepath){
 		super();
+		stackable=false;
 		this.setContainerItem(ItemSetup.woodenBucketEmpty);
 		this.fluidTextureLocation = filepath;
 	}

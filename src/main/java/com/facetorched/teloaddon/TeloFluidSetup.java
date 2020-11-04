@@ -1,6 +1,5 @@
 package com.facetorched.teloaddon;
 
-import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.Core.FluidBaseTFC;
 import com.dunk.tfc.TileEntities.TEHopper;
 import com.dunk.tfc.api.TFCFluids;
@@ -8,18 +7,15 @@ import com.dunk.tfc.api.TFCItems;
 import com.facetorched.teloaddon.util.Config;
 
 import cpw.mods.fml.common.Loader;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class TeloFluidSetup {
 	public static Fluid hydrofluoricAcid;
 	public static Fluid nitricAcid;
 	public static Fluid glycerol;
 	public static Fluid nitroglycerin;
+	public static Fluid teloCreosote;
 
 	public static void setup() {
 		if (Config.addFluids) {
@@ -32,15 +28,16 @@ public class TeloFluidSetup {
 			TEHopper.registerPressableItem(TFCItems.coconutMeat,TFCFluids.OLIVEOIL,0.64f,10);
 			TEHopper.registerPressableItem(TFCItems.soybean,TFCFluids.OLIVEOIL,0.64f,10);
 		}
-	}
-	public static Fluid registryHelper(FluidBaseTFC fluid, int color, Item fullBottle) {
-		fluid.setBaseColor(color);
-		FluidRegistry.registerFluid(fluid);
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(fluid, 250), new ItemStack(fullBottle),new ItemStack(ItemSetup.glassBottle));
-		return fluid;
+		if(Config.addCreosoteFluid) {
+			teloCreosote = registryHelper(new FluidBaseTFC("telocreosote"));
+		}
 	}
 	public static Fluid registryHelper(FluidBaseTFC fluid, int color) {
 		fluid.setBaseColor(color);
+		FluidRegistry.registerFluid(fluid);
+		return fluid;
+	}
+	public static Fluid registryHelper(FluidBaseTFC fluid) {
 		FluidRegistry.registerFluid(fluid);
 		return fluid;
 	}
