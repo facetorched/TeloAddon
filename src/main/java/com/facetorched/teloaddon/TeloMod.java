@@ -36,7 +36,8 @@ public class TeloMod
     	Config.reload();
     	TeloFluidSetup.setup();
     	TeloItemSetup.setup();
-    	TeloBlockSetup.setup();
+    	TeloBlockSetup.loadBlocks();
+    	TeloBlockSetup.registerBlocks();
     	ImmersiveEngineering.preInit();
     	proxy.preInit(event);
     }
@@ -46,12 +47,14 @@ public class TeloMod
     {
     	MinecraftForge.EVENT_BUS.register(new BlockDropHandler());
     	TeloItemHeat.setupItemHeat();
+    	Config.reloadOres();
     	proxy.init(event);
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
     	ImmersiveEngineering.postInit();
+    	
     	proxy.postInit(event);
     }
     

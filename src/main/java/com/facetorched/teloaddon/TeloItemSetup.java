@@ -11,6 +11,7 @@ import com.dunk.tfc.ItemSetup;
 import com.dunk.tfc.Core.Metal.Alloy;
 import com.facetorched.teloaddon.items.ItemBottle;
 import com.facetorched.teloaddon.items.ItemCeramicBucket;
+import com.facetorched.teloaddon.items.ItemLeadBottle;
 import com.facetorched.teloaddon.items.ItemWoodenBucket;
 import com.facetorched.teloaddon.items.TeloItemGem;
 import com.facetorched.teloaddon.items.TeloItemIngot;
@@ -45,10 +46,12 @@ public class TeloItemSetup {
 	public static Item fluorite;
 	public static Item oilyMash;
 	public static Item pitchblendePowder;
+	public static Item potash;
 	public static Item uraniumHexafluoride;
 	public static Item uranylNitrate;
 	public static Item yellowcake;
 	
+	public static Item leadBottle;
 	public static Item hydrofluoricAcidBottle;
 	public static Item nitricAcidBottle;
 	public static Item glycerolBottle;
@@ -116,8 +119,10 @@ public class TeloItemSetup {
 			oilyMash = registryHelper(new TeloItemTerra(),"Oily_Mash");
 		if (Config.addLye)
 			lye = registryHelper(new TeloItemTerra(),"Lye");
+			potash = registryHelper(new TeloItemTerra(),"Potash");
 		if (Config.addFluids) {
-			hydrofluoricAcidBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.hydrofluoricAcid, 250),"Hydrofluoric_Acid_Bottle");
+			leadBottle = registryHelper(new TeloItemTerra(),"Lead_Bottle");
+			hydrofluoricAcidBottle = registryHelper(new ItemLeadBottle().registerContainer(TeloFluidSetup.hydrofluoricAcid, 250),"Hydrofluoric_Acid_Bottle");
 			nitricAcidBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.nitricAcid, 250),"Nitric_Acid_Bottle");
 			glycerolBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.glycerol, 250),"Glycerol_Bottle");
 			nitroglycerinBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.nitroglycerin, 250),"Nitroglycerin_Bottle");

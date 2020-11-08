@@ -1,7 +1,14 @@
 package com.facetorched.teloaddon.util;
 
+import static com.dunk.tfc.WorldGen.Generators.WorldGenOre.oreList;
+
 import java.io.File;
 import java.util.HashMap;
+
+import com.dunk.tfc.WorldGen.Generators.OreSpawnData;
+import com.dunk.tfc.api.Constant.Global;
+import com.facetorched.teloaddon.TeloMod;
+import com.google.common.collect.ObjectArrays;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -52,8 +59,17 @@ public class Config {
 		dieselGeneratorFuels = config.getStringList("dieselGeneratorFuels", "Immersive Engineering" ,dieselGeneratorFuels,
 				"If Immersive engineering is loaded, these are valid fuels. Format each line: fluidname,burnduration. Any value above 1000 results in infinite burn duration");
 		dieselGeneratorFuelsMap = configStringParser(dieselGeneratorFuels);
+		
 		if (config.hasChanged()) config.save();
 	}
+	
+	//this must be run in the init phase (after blocks setup but before world gen)
+	public static void reloadOres() {
+		oreList.put("Bauxite", getOreData("Bauxite", "veins", "small", TeloMod.MODID+":Ore", 0, 35, new String[]{"limestone","dolomite","granite","gneiss","basalt","shale"}, 128, 240, 40, 40));
+		if (config.hasChanged()) config.save();
+	}
+	
+	//takes a string array input with "key,number" and outputs a hashmap with equivalent entries
 	public static HashMap<String,Integer> configStringParser(String[] input) {
 		HashMap<String,Integer> output = new HashMap<String,Integer>();
 		for(String line : input) {
@@ -67,5 +83,25 @@ public class Config {
 			}
 		}
 		return (output);
+	}
+	
+	//Copied from tfc since this is all private
+	private static final String[] ALLOWED_TYPES = new String[] {"default", "veins"};
+	private static final String[] ALLOWED_SIZES = new String[] {"small", "medium", "large"};
+	private static final String[] ALLOWED_BASE_ROCKS = ObjectArrays.concat(Global.STONE_ALL, new String[] {"igneous intrusive", "igneous extrusive", "sedimentary", "metamorphic"}, String.class);
+	private static OreSpawnData getOreData(String category, String type, String size, String blockName, int meta, int rarity, String[] rocks, int min, int max, int v, int h)
+	{
+		return new OreSpawnData(
+				config.get(category, "type", type).setValidValues(ALLOWED_TYPES).getString(),
+				config.get(category, "size", size).setValidValues(ALLOWED_SIZES).getString(),
+				config.get(category, "oreName", blockName).getString(),
+				config.get(category, "oreMeta", meta).getInt(),
+				config.get(category, "rarity", rarity).getInt(),
+				config.get(category, "baseRocks", rocks).setValidValues(ALLOWED_BASE_ROCKS).getStringList(),
+				config.get(category, "Minimum Height", min).getInt(),
+				config.get(category, "Maximum Height", max).getInt(),
+				config.get(category, "Vertical Density", v).getInt(),
+				config.get(category, "Horizontal Density", h).getInt()
+		);
 	}
 }

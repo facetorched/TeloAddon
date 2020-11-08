@@ -9,6 +9,7 @@ import com.dunk.tfc.api.Crafting.BarrelFireRecipe;
 import com.dunk.tfc.api.Crafting.BarrelManager;
 import com.facetorched.teloaddon.TeloFluidSetup;
 import com.facetorched.teloaddon.TeloItemSetup;
+import com.facetorched.teloaddon.handlers.ClientEventHandler;
 import com.facetorched.teloaddon.util.Config;
 import com.facetorched.teloaddon.util.TeloLogger;
 
@@ -19,6 +20,7 @@ import blusunrize.immersiveengineering.common.util.IEPotions;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler.ChemthrowerEffect_Potion;
 
 import cpw.mods.fml.common.Loader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 

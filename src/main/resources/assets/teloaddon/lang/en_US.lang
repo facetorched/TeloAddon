@@ -20,11 +20,13 @@ item.Glass_Fiber.name=Glass Fiber
 item.Lye.name=Lye
 item.Fluorite.name=Fluorite
 item.Oily_Mash.name=Oily Mash
+item.Potash.name=Potash
 item.Pitchblende_Powder.name=Pitchblende Powder
 item.Uranium_Hexafluoride.name=Uranium Hexafluoride
 item.Uranyl_Nitrate.name=Uranyl Nitrate
 item.Yellowcake.name=Yellowcake
 
+item.Lead_Bottle.name=Lead Bottle
 item.Hydrofluoric_Acid_Bottle.name=Hydrofluoric Acid Bottle
 item.Nitric_Acid_Bottle.name=Nitric Acid Bottle
 item.Glycerol_Bottle.name=Glycerol Bottle
