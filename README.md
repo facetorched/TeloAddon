@@ -4,7 +4,7 @@ The goal is that everything can be turned on/off in the configs to help with mod
 # Features:
 * Make olive oil/immersive plant oil with coconuts and soybeans in a stone hopper
 * Add new Immersive Engineering fuels and burn times using the config
-* adds aluminum as a TFC metal
+* adds aluminum as a TFC metal and ore
 * adds Fluorite Gem that drops from rocks
 * adds misc items and fluids for crafting/processing
 * immersive engineering coke oven creates TFC+ pitch which can be distilled into creosote
