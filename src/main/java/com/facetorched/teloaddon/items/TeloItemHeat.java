@@ -18,8 +18,8 @@ public class TeloItemHeat {
 		 */
 
 		HeatRaw aluminumRaw = new HeatRaw(0.9, 660);
-		
-		manager.addIndex(new HeatIndex(new ItemStack(TeloItemSetup.bauxiteOre,1,0), aluminumRaw,new ItemStack(TeloItemSetup.aluminumUnshaped,1)));
+		//TODO this should be a config?
+		manager.addIndex(new HeatIndex(new ItemStack(TeloItemSetup.bauxite,1,0), aluminumRaw,new ItemStack(TeloItemSetup.aluminumUnshaped,1)));
 		manager.addIndex(new HeatIndex(new ItemStack(TeloItemSetup.aluminumIngot,1), aluminumRaw,new ItemStack(TeloItemSetup.aluminumUnshaped,1)));
 		manager.addIndex(new HeatIndex(new ItemStack(TeloItemSetup.aluminumIngot2x,1), aluminumRaw,new ItemStack(TeloItemSetup.aluminumUnshaped,2,0)));
 		manager.addIndex(new HeatIndex(new ItemStack(TeloItemSetup.aluminumUnshaped,1), aluminumRaw,new ItemStack(TeloItemSetup.aluminumUnshaped,1)));

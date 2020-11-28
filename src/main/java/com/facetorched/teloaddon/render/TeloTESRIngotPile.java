@@ -21,11 +21,14 @@ public class TeloTESRIngotPile extends TESRIngotPile{
 		if (tep.getWorldObj() != null && tep.getStackInSlot(0) != null && block == TeloBlockSetup.ingotPile)
 		{
 			int i = ((BlockIngotPile) block).getStack(tep.getWorldObj(), tep);
-			TFC_Core.bindTexture(new ResourceLocation("teloaddon", "textures/blocks/metal/" + tep.type + ".png")); //texture
-
+			TFC_Core.bindTexture(new ResourceLocation("teloaddon", "textures/blocks/metal/" + tep.type + ".png")); //texture based on ingot's metal name
+			
 			GL11.glPushMatrix(); //start
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glTranslatef((float)d + 0.0F, (float)d1 + 0F, (float)d2 + 0.0F); //size
 			ingotModel.renderIngots(i);
+			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix(); //end
 		}
 	}

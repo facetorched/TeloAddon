@@ -29,7 +29,7 @@ public class TeloFluidSetup {
 			TEHopper.registerPressableItem(TFCItems.soybean,TFCFluids.OLIVEOIL,0.64f,10);
 		}
 		if(Config.addCreosoteFluid) {
-			teloCreosote = registryHelper(new FluidBaseTFC("telocreosote"));
+			teloCreosote = registryHelper(new FluidBaseTFC("telocreosote"),0x341404);
 		}
 	}
 	public static Fluid registryHelper(FluidBaseTFC fluid, int color) {

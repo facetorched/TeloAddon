@@ -7,7 +7,9 @@ item.Aluminum_Unshaped.name=Unshaped Aluminum
 item.Aluminum_Sheet.name=Aluminum Sheet
 item.Aluminum_Double_Sheet.name=Aluminum Double Sheet
 item.Ammonium_Diuranate.name=Ammonium Diuranate
-item.Bauxite_Ore.name=Bauxite Ore
+item.Bauxite.Bauxite.name=Bauxite
+item.Bauxite.Rich_Bauxite.name=Rich Bauxite
+item.Bauxite.Poor_Bauxite.name=Poor Bauxite
 item.Enriched_Uranium_Powder.name=Enriched Uranium Powder
 item.Fiberglass.name=Fiberglass
 item.Fluorite.Chipped.name=Chipped Fluorite
@@ -62,3 +64,7 @@ fluid.nitricacid=Nitric Acid
 fluid.glycerol=Glycerol
 fluid.nitroglycerin=Nitroglycerin
 fluid.telocreosote=Creosote Oil
+
+tile.bauxiteOre.name=Bauxite
+
+gui.metal.Aluminum=Aluminum

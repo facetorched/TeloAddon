@@ -1,14 +1,14 @@
 package com.facetorched.teloaddon;
 
-import net.minecraftforge.common.MinecraftForge;
-
 import com.facetorched.teloaddon.handlers.BlockDropHandler;
+import com.facetorched.teloaddon.handlers.TeloChunkEventHandler;
 import com.facetorched.teloaddon.items.TeloItemHeat;
 import com.facetorched.teloaddon.proxy.IProxy;
 import com.facetorched.teloaddon.util.Config;
 import com.facetorched.teloaddon.util.compat.ImmersiveEngineering;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -16,6 +16,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = TeloMod.MODID, version = TeloMod.VERSION, dependencies = "required-after:terrafirmacraftplus;after:ImmersiveEngineering;")
 public class TeloMod
@@ -38,7 +39,8 @@ public class TeloMod
     	TeloItemSetup.setup();
     	TeloBlockSetup.loadBlocks();
     	TeloBlockSetup.registerBlocks();
-    	ImmersiveEngineering.preInit();
+    	if(Loader.isModLoaded("ImmersiveEngineering"))
+    		ImmersiveEngineering.preInit();
     	proxy.preInit(event);
     }
 
@@ -46,14 +48,18 @@ public class TeloMod
     public void init(FMLInitializationEvent event) //build data structures and register network handlers
     {
     	MinecraftForge.EVENT_BUS.register(new BlockDropHandler());
+    	MinecraftForge.EVENT_BUS.register(new TeloChunkEventHandler());
     	TeloItemHeat.setupItemHeat();
     	Config.reloadOres();
+    	if(Loader.isModLoaded("ImmersiveEngineering"))
+    		ImmersiveEngineering.init();
     	proxy.init(event);
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-    	ImmersiveEngineering.postInit();
+    	if(Loader.isModLoaded("ImmersiveEngineering"))
+    		ImmersiveEngineering.postInit();
     	
     	proxy.postInit(event);
     }

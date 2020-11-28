@@ -3,9 +3,11 @@ package com.facetorched.teloaddon.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.dunk.tfc.TerraFirmaCraft;
 import com.dunk.tfc.Blocks.Terrain.BlockOre;
 import com.dunk.tfc.Core.TFC_Core;
-import com.facetorched.teloaddon.TeloItemSetup;
+import com.dunk.tfc.TileEntities.TEOre;
+import com.dunk.tfc.api.TFCOptions;
 import com.facetorched.teloaddon.TeloMod;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,17 +18,24 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class TeloBlockOre extends BlockOre{
-	public String[] telo_ores = {"Bauxite"};
+	public Item droppedItem;
 	public TeloBlockOre(Material mat)
 	{
 		super(mat);
-		blockNames = telo_ores;
-		super.icons = new IIcon[blockNames.length];
+		//blockNames = TeloMod.teloOres;
+		//super.icons = new IIcon[blockNames.length];
+	}
+	public TeloBlockOre teloSetHarvestLevel(String toolClass, int level) {
+		this.setHarvestLevel(toolClass, level);
+		return this;
+	}
+	public TeloBlockOre setDroppedItem(Item item) {
+		droppedItem = item;
+		return this;
 	}
 	@Override
 	public int damageDropped(int dmg)
@@ -37,17 +46,20 @@ public class TeloBlockOre extends BlockOre{
 	@Override
 	public int quantityDropped(int meta, int fortune, Random random)
 	{
-		return 0;
+		return 1;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegisterer)
 	{
+		icons[0] = iconRegisterer.registerIcon(TeloMod.MODID + ":ores/"+ getUnlocalizedName().substring(5));
+		/*
 		for(int i = 0; i < blockNames.length; i++)
 		{
 			icons[i] = iconRegisterer.registerIcon(TeloMod.MODID + ":ores/"+ blockNames[i] + "_Ore");
-		}
+			
+		}*/
 	}
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
@@ -65,7 +77,10 @@ public class TeloBlockOre extends BlockOre{
 			}
 			if (player == null || dropOres)
 			{
-				itemstack = new ItemStack(getDroppedItem(meta));
+				TEOre te = (TEOre) world.getTileEntity(x, y, z);
+				TerraFirmaCraft.LOG.info("Ore  extraData = " + te.extraData + "grade" +getOreGrade(te,meta));
+				itemstack = new ItemStack(this.droppedItem, 1, getOreGrade(te,meta));
+				
 			}
 			if (itemstack != null)
 				dropBlockAsItem(world, x, y, z, itemstack);
@@ -77,23 +92,17 @@ public class TeloBlockOre extends BlockOre{
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
 	{
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		TEOre te = (TEOre) world.getTileEntity(x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
 		int count = quantityDropped(metadata, fortune, world.rand);
 		for (int i = 0; i < count; i++)
 		{
 			ItemStack itemstack;
-			itemstack = new ItemStack(getDroppedItem(metadata));
+			TerraFirmaCraft.LOG.info("Ore  extraData = " + te.extraData + "grade" +getOreGrade(te,meta));
+			itemstack = new ItemStack(this.droppedItem, 1, getOreGrade(te,meta));
 			ret.add(itemstack);
 		}
 		return ret;
-	}
-
-	public Item getDroppedItem(int meta)
-	{
-		switch(meta) {
-		case 0:
-			return(TeloItemSetup.bauxiteOre);
-		}
-		return null;
 	}
 
 	@Override
@@ -102,10 +111,27 @@ public class TeloBlockOre extends BlockOre{
 		if(!world.isRemote)
 		{
 			ItemStack itemstack;
+			TEOre te = (TEOre) world.getTileEntity(x, y, z);
 			int meta = world.getBlockMetadata(x, y, z);
-			itemstack = new ItemStack(getDroppedItem(meta));
+			itemstack = new ItemStack(this.droppedItem, 1, getOreGrade(te,meta));
 			dropBlockAsItem(world, x, y, z, itemstack);
 			onBlockDestroyedByExplosion(world, x, y, z, exp);
 		}
+	}
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
+	{
+		if(TFCOptions.enableDebugMode && !world.isRemote)
+		{
+			TEOre te = (TEOre)world.getTileEntity(x, y, z);
+			int meta = world.getBlockMetadata(x, y, z);
+			if(te != null) {
+				if (entityplayer.isSneaking())
+					te.extraData++;
+				TerraFirmaCraft.LOG.info("Ore  extraData = " + te.extraData + ", Grade = " +getOreGrade(te,meta));
+
+			}
+		}
+		return super.onBlockActivated(world,x,y,z,entityplayer,par6,par7,par8,par9);
 	}
 }

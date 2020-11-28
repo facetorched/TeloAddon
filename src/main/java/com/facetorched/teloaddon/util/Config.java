@@ -18,6 +18,7 @@ public class Config {
 	
 	//default values
 	public static boolean addAluminum = true;
+	public static boolean aluminumSmeltable = true;
 	public static boolean addFluorite = true;
 	public static boolean stoneDropFluorite = true;
 	public static boolean addUranium = true;
@@ -30,7 +31,7 @@ public class Config {
 	public static boolean cokeOvenPitch = true;
 	public static boolean addCreosoteFluid = true;
 	public static boolean hotspringBucket = true;
-	public static String [] dieselGeneratorFuels = {"biodiesel,1000","ethanol,200","plantoil,200","oliveoil,200","creosote,20"};
+	public static String [] dieselGeneratorFuels = {"biodiesel,1000","ethanol,200","plantoil,200","oliveoil,200","telocreosote,20"};
 	public static HashMap<String,Integer> dieselGeneratorFuelsMap = new HashMap<String,Integer>();
 	
 	public static void preInit(File configDir)
@@ -44,6 +45,7 @@ public class Config {
 		TeloLogger.info("Loading TeloAddon Config");
 		config.load();
 		addAluminum = config.getBoolean("addAluminum", "Items", true, "Set to false to prevent aluminum items from being added to the game");
+		aluminumSmeltable = config.getBoolean("aluminumSmeltable", "Items", true, "Set to false to prevent bauxite from being smelted to aluminum");
 		addFluorite = config.getBoolean("addFluorite", "Items", true, "Set to false to prevent fluorite gems from being added to the game");
 		stoneDropFluorite = config.getBoolean("stoneDropFluorite", "Items", true, "Set to false to prevent fluorite gems dropping from stone");
 		addUranium = config.getBoolean("addUranium", "Items", true, "Set to false to prevent uranium items from being added to the game");
@@ -65,7 +67,7 @@ public class Config {
 	
 	//this must be run in the init phase (after blocks setup but before world gen)
 	public static void reloadOres() {
-		oreList.put("Bauxite", getOreData("Bauxite", "veins", "small", TeloMod.MODID+":Ore", 0, 35, new String[]{"limestone","dolomite","granite","gneiss","basalt","shale"}, 128, 240, 40, 40));
+		oreList.put("Bauxite", getOreData("Bauxite", "veins", "small", TeloMod.MODID+":bauxiteOre", 0, 35, new String[]{"limestone","dolomite","granite","gneiss","basalt","shale"}, 128, 240, 40, 40));
 		if (config.hasChanged()) config.save();
 	}
 	

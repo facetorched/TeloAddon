@@ -16,7 +16,7 @@ public class ClientProxy implements IProxy {
     public void preInit(FMLPreInitializationEvent event)
     {
         // DEBUG
-        System.out.println("on Client side");
+        //System.out.println("on Client side");
         ClientRegistry.registerTileEntity(TeloTEIngotPile.class, "teloIngotPile", new TeloTESRIngotPile()); //register the TileEntitySpecialRenderer on client
         //Minecraft.getMinecraft().mouseHelper = ClientProxy.mouseHelperAI;
         //register entity renderer here
@@ -27,7 +27,7 @@ public class ClientProxy implements IProxy {
     {
         // DEBUG
     	MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
-        System.out.println("on Client side");
+        //System.out.println("on Client side");
 
         // register key bindings
     }
@@ -36,7 +36,7 @@ public class ClientProxy implements IProxy {
     public void postInit(FMLPostInitializationEvent event)
     {
         // DEBUG
-        System.out.println("on Client side");
+        //System.out.println("on Client side");
     }
 
 }

@@ -7,10 +7,13 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 public class ImageHelper {
+	@SideOnly(Side.CLIENT)
 	public static int getTextureColor(String name){
 		InputStream is;
 		BufferedImage image;

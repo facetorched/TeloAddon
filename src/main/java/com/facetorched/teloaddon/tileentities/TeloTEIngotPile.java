@@ -1,11 +1,9 @@
 package com.facetorched.teloaddon.tileentities;
 
 import com.dunk.tfc.TileEntities.TEIngotPile;
-import com.facetorched.teloaddon.TeloItemSetup;
 
-import net.minecraft.item.Item;
-
+//this empty class is only here so that I can render this tile entity using my textures
 public class TeloTEIngotPile extends TEIngotPile{
-	public static final Item[] INGOTS = new Item[]{TeloItemSetup.aluminumIngot};
+	//public static final Item[] INGOTS = new Item[]{TeloItemSetup.aluminumIngot};
 
 }

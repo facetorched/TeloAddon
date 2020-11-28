@@ -13,6 +13,10 @@ import net.minecraftforge.fluids.FluidStack;
 
 public abstract class ItemFluidContainer extends ItemTerra{
 	public String fluidTextureLocation;
+	public ItemFluidContainer setFluidTextureLocation(String s) {
+		fluidTextureLocation = s;
+		return this;
+	}
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(ItemStack stack, int pass)
