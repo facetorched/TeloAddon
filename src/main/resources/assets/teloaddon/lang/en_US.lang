@@ -52,7 +52,9 @@ item.Creosote_Ceramic_Bucket.name=Creosote Ceramic Bucket
 item.Olive_Oil_Bottle.name=Olive Oil Bottle
 item.Olive_Oil_Wooden_Bucket.name=Olive Oil Wooden Bucket
 item.Olive_Oil_Ceramic_Bucket.name=Olive Oil Ceramic Bucket
-
+item.Ammonium_Chloride_Bottle.name=Ammonium Chloride Bottle
+item.Ammonium_Chloride_Wooden_Bucket.name=Ammonium Chloride Wooden Bucket
+item.Ammonium_Chloride_Ceramic_Bucket.name=Ammonium Chloride Ceramic Bucket
 item.Distilled_Water_Bottle.name=Distilled Water Bottle
 item.Distilled_Water_Wooden_Bucket.name=Distilled Water Wooden Bucket
 item.Distilled_Water_Ceramic_Bucket.name=Distilled Water Ceramic Bucket

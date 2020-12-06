@@ -3,11 +3,13 @@ package com.facetorched.teloaddon.handlers;
 import java.util.Random;
 
 import com.dunk.tfc.BlockSetup;
+import com.dunk.tfc.ItemSetup;
 import com.facetorched.teloaddon.TeloItemSetup;
 import com.facetorched.teloaddon.util.Config;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -34,6 +36,14 @@ public class BlockDropHandler {
 			}
 		}
 		//System.out.println("test1"+);
+	}
+	@SubscribeEvent
+	public void onDrops(BlockEvent.HarvestDropsEvent event) {
+		if(event.block.equals(Blocks.clay) && !event.isSilkTouching) {
+			int num = event.drops.size();
+			event.drops.clear();
+			event.drops.add(new ItemStack(ItemSetup.clayBall,num));
+		}
 	}
 	//Method to get random gem. Copied from tfc src
 	public static ItemStack teloRandomGem(Random random, int rockType)

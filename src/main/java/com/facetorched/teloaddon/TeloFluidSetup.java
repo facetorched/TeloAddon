@@ -20,7 +20,7 @@ public class TeloFluidSetup {
 	public static void setup() {
 		if (Config.addFluids) {
 			hydrofluoricAcid = registryHelper(new FluidBaseTFC("hydrofluoricacid"),0xc19fe4).setTemperature(386); //can't go in barrels
-			nitricAcid = registryHelper(new FluidBaseTFC("nitricacid"),0xeabb4d).setTemperature(386); //can't go in barrels
+			nitricAcid = registryHelper(new FluidBaseTFC("nitricacid"),0xeabb4d);
 			glycerol = registryHelper(new FluidBaseTFC("glycerol"),0xe9ece9);
 			nitroglycerin = registryHelper(new FluidBaseTFC("nitroglycerin"),0xf1d5ce);
 		}

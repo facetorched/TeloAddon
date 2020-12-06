@@ -80,6 +80,9 @@ public class TeloItemSetup {
 	public static Item oliveOilBottle;
 	public static Item oliveOilWoodenBucket;
 	public static Item oliveOilCeramicBucket;
+	public static Item ammoniumChlorideBottle;
+	public static Item ammoniumChlorideWoodenBucket;
+	public static Item ammoniumChlorideCeramicBucket;
 	
 	public static Item distilledWaterBottle;
 	public static Item distilledWaterWoodenBucket;
@@ -141,8 +144,10 @@ public class TeloItemSetup {
 		oliveOilBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.OLIVEOIL, 250),"Olive_Oil_Bottle");
 		oliveOilWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Wooden_Bucket");
 		oliveOilCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Ceramic_Bucket");
-		
-		distilledWaterBottle = registryHelper(new ItemBottle().registerContainer(FluidRegistry.WATER, 250),"Distilled_Water_Bottle");
+		ammoniumChlorideBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 250),"Ammonium_Chloride_Bottle");
+		ammoniumChlorideWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 1000),"Ammonium_Chloride_Wooden_Bucket");
+		ammoniumChlorideCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 1000),"Ammonium_Chloride_Ceramic_Bucket");
+		distilledWaterBottle = registryHelper(new ItemBottle("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 250),"Distilled_Water_Bottle");
 		distilledWaterWoodenBucket = registryHelper(new ItemCeramicBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Wooden_Bucket");
 		distilledWaterCeramicBucket = registryHelper(new ItemWoodenBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Ceramic_Bucket");
 		
