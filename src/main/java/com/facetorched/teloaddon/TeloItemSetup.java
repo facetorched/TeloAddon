@@ -19,6 +19,7 @@ import com.facetorched.teloaddon.items.ItemBottle;
 import com.facetorched.teloaddon.items.ItemCeramicBucket;
 import com.facetorched.teloaddon.items.ItemLeadBottle;
 import com.facetorched.teloaddon.items.ItemWoodenBucket;
+import com.facetorched.teloaddon.items.TeloItemCustomBow;
 import com.facetorched.teloaddon.items.TeloItemGem;
 import com.facetorched.teloaddon.items.TeloItemIngot;
 import com.facetorched.teloaddon.items.TeloItemMeltedMetal;
@@ -31,6 +32,7 @@ import com.facetorched.teloaddon.util.Config;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -90,7 +92,20 @@ public class TeloItemSetup {
 	
 	public static Item hotspringRedSteelBucket;
 	
+	public static Item compoundBow;
+	public static Item compoundBowFrame;
+	public static Item compoundBowLimbs;
+	public static Item compoundBowRiser;
+	public static Item chainsaw;
+	public static Item chainsawBlade;
+	public static Item chainsawChain;
+	public static Item chainsawHousing;
+	public static Item redSteelChainsawChainLink;
+	public static Item blueSteelChainsawChainLink;
+	
 	public static Metal ALUMINUM;
+	
+	public static ToolMaterial chainsawToolMaterial;
 	
 	public static void setup() {
 		if(Config.addAluminum) {
@@ -139,6 +154,12 @@ public class TeloItemSetup {
 			nitricAcidBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.nitricAcid, 250),"Nitric_Acid_Bottle");
 			glycerolBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.glycerol, 250),"Glycerol_Bottle");
 			nitroglycerinBottle = registryHelper(new ItemBottle().registerContainer(TeloFluidSetup.nitroglycerin, 250),"Nitroglycerin_Bottle");
+		}
+		if(Config.addCompoundBow) {
+			compoundBowRiser = registryHelper(new TeloItemTerra(),"Compound_Bow_Riser");
+			compoundBowLimbs = registryHelper(new TeloItemTerra(),"Compound_Bow_Limbs");
+			compoundBowFrame = registryHelper(new TeloItemTerra(),"Compound_Bow_Frame");
+			compoundBow = registryHelper(new TeloItemCustomBow().setDamageMultiplier(1.5f).setSpeedMultiplier(0.5f).setMaxDamage(1000), "Compound_Bow").setTextureName("tools/Compound_Bow");
 		}
 		//Just some fluid container additions. should be pretty benign
 		oliveOilBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.OLIVEOIL, 250),"Olive_Oil_Bottle");

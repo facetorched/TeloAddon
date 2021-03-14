@@ -1,0 +1,4 @@
+{
+  	"chainsaw_standby": { "category": "player", "sounds":["chainsaw_sb"] },
+  	"chainsaw_cut": { "category": "player", "sounds":["chainsaw_cut"] }
+}

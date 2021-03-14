@@ -60,6 +60,16 @@ item.Distilled_Water_Wooden_Bucket.name=Distilled Water Wooden Bucket
 item.Distilled_Water_Ceramic_Bucket.name=Distilled Water Ceramic Bucket
 
 item.Hotspring_Red_Steel_Bucket.name=Hotspring Red Steel Bucket
+item.Compound_Bow.name=Compound Bow
+item.Compound_Bow_Riser.name=Compound Bow Riser
+item.Compound_Bow_Limbs.name=Compound Bow Limbs
+item.Compound_Bow_Frame.name=Compound Bow Frame
+item.Chainsaw.name=Chainsaw
+item.Chainsaw_Blade.name=Chainsaw Blade
+item.Chainsaw_Chain.name=Chainsaw Chain
+item.Chainsaw_Housing.name=Chainsaw Housing
+item.Blue_Steel_Chainsaw_Chain_Link.name=Blue Steel Chainsaw Chain Link
+item.Red_Steel_Chainsaw_Chain_Link.name=Red Steel Chainsaw Chain Link
 
 fluid.hydrofluoricacid=Hydrofluoric Acid
 fluid.nitricacid=Nitric Acid

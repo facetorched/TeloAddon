@@ -12,8 +12,10 @@ import com.facetorched.teloaddon.TeloFluidSetup;
 import com.facetorched.teloaddon.TeloItemSetup;
 import com.facetorched.teloaddon.items.ItemBottle;
 import com.facetorched.teloaddon.items.ItemCeramicBucket;
+import com.facetorched.teloaddon.items.ItemChainsaw;
 import com.facetorched.teloaddon.items.ItemFluidContainer;
 import com.facetorched.teloaddon.items.ItemWoodenBucket;
+import com.facetorched.teloaddon.items.TeloItemTerra;
 import com.facetorched.teloaddon.util.Config;
 import com.facetorched.teloaddon.util.TeloLogger;
 
@@ -22,9 +24,12 @@ import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler;
 import blusunrize.immersiveengineering.common.IEContent;
 import blusunrize.immersiveengineering.common.util.IEPotions;
 import cpw.mods.fml.common.Loader;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ImmersiveEngineering {
 
@@ -123,5 +128,17 @@ public class ImmersiveEngineering {
 		TeloItemSetup.biodieselCeramicBucket = TeloItemSetup.registryHelper(new ItemCeramicBucket(path+"biodiesel_still.png").registerContainer(IEContent.fluidBiodiesel, 1000),"Biodiesel_Ceramic_Bucket");
 		TeloItemSetup.plantOilCeramicBucket = TeloItemSetup.registryHelper(new ItemCeramicBucket(path+"plantoil_still.png").registerContainer(IEContent.fluidPlantoil, 1000),"Plant_Oil_Ceramic_Bucket");
 		TeloItemSetup.ethanolCeramicBucket = TeloItemSetup.registryHelper(new ItemCeramicBucket(path+"ethanol_still.png").registerContainer(IEContent.fluidEthanol, 1000),"Ethanol_Ceramic_Bucket");
-	}
+		
+		if(Config.addChainsaw) {
+			TeloItemSetup.chainsawBlade = TeloItemSetup.registryHelper(new TeloItemTerra(), "Chainsaw_Blade");
+			TeloItemSetup.chainsawChain = TeloItemSetup.registryHelper(new TeloItemTerra(), "Chainsaw_Chain");
+			TeloItemSetup.chainsawHousing = TeloItemSetup.registryHelper(new TeloItemTerra(), "Chainsaw_Housing");
+			TeloItemSetup.redSteelChainsawChainLink = TeloItemSetup.registryHelper(new TeloItemTerra(), "Red_Steel_Chainsaw_Chain_Link");
+			TeloItemSetup.blueSteelChainsawChainLink = TeloItemSetup.registryHelper(new TeloItemTerra(), "Blue_Steel_Chainsaw_Chain_Link");
+			//name,mining level,durability,miningspeed,attack,enchantability
+			TeloItemSetup.chainsawToolMaterial = EnumHelper.addToolMaterial("Chainsaw", 3, Config.chainsawDurability, 60, 20, 22);
+			TeloItemSetup.chainsaw = TeloItemSetup.registryHelper(new ItemChainsaw(TeloItemSetup.chainsawToolMaterial,Config.chainsawDamage).setAttackSpeed(30),"Chainsaw").setTextureName("tools/Chainsaw");
+			OreDictionary.registerOre("itemAxeSteel",new ItemStack(TeloItemSetup.chainsaw, 1, OreDictionary.WILDCARD_VALUE));
+		}
+    }
 }

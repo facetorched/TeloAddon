@@ -20,7 +20,7 @@ public class Config {
 	public static boolean addAluminum = true;
 	public static boolean aluminumSmeltable = true;
 	public static boolean addFluorite = true;
-	public static boolean stoneDropFluorite = true;
+	public static int fluoriteRarity;
 	public static boolean addUranium = true;
 	public static boolean addFiberglass = true;
 	public static boolean addOilyMash = true;
@@ -31,6 +31,13 @@ public class Config {
 	public static boolean cokeOvenPitch = true;
 	public static boolean addCreosoteFluid = true;
 	public static boolean hotspringBucket = true;
+	public static boolean addChainsaw = true;
+	public static boolean addCompoundBow = true;
+	public static boolean clayBlockDropsItself = true;
+	public static int chainsawDamage;
+	public static int chainsawDurability;
+	public static int chainsawEnergyUsage;
+	public static int chainsawMaxEnergy;
 	public static String [] dieselGeneratorFuels = {"biodiesel,1000","ethanol,200","plantoil,200","oliveoil,200","telocreosote,20"};
 	public static HashMap<String,Integer> dieselGeneratorFuelsMap = new HashMap<String,Integer>();
 	
@@ -47,7 +54,7 @@ public class Config {
 		addAluminum = config.getBoolean("addAluminum", "Items", true, "Set to false to prevent aluminum items from being added to the game");
 		aluminumSmeltable = config.getBoolean("aluminumSmeltable", "Items", true, "Set to false to prevent bauxite from being smelted to aluminum");
 		addFluorite = config.getBoolean("addFluorite", "Items", true, "Set to false to prevent fluorite gems from being added to the game");
-		stoneDropFluorite = config.getBoolean("stoneDropFluorite", "Items", true, "Set to false to prevent fluorite gems dropping from stone");
+		fluoriteRarity = config.getInt("stoneDropFluorite", "Items", 2000, -1, Integer.MAX_VALUE, "Higher values increase rarity fo fluorite. Set to -1 to prevent fluorite gems dropping from stone");
 		addUranium = config.getBoolean("addUranium", "Items", true, "Set to false to prevent uranium items from being added to the game");
 		addFiberglass = config.getBoolean("addFiberglass", "Items", true, "Set to false to prevent fiberglass items from being added to the game");
 		addOilyMash = config.getBoolean("addOilyMash", "Items", true, "Set to false to prevent oily mash item from being added to the game");
@@ -55,6 +62,15 @@ public class Config {
 		addFluids = config.getBoolean("addFluids", "Fluids", true, "Set to false to prevent new fluids from being added to the game");
 		moreOil = config.getBoolean("moreOil", "Fluids", true, "Coconuts and soybeans can make olive oil. Set false to prevent this");
 		hotspringBucket = config.getBoolean("hotSpringBucket", "Fluids", true, "Set false to disable picking up hotsprings with red steel buckets");
+		addCompoundBow = config.getBoolean("addCompoundBow", "Items", true, "Set to false to prevent Compound Bow related items from being added to the game");
+		clayBlockDropsItself = config.getBoolean("clayBlockDropsItself", "Items", true, "Set to false for normal drops while breaking vanilla clay block");
+		
+		addChainsaw = config.getBoolean("addChainsaw", "Chainsaw", true, "Set to false to prevent Chainsaw related items from being added to the game. If true, the chainsaw requires Immersive Engineering!");
+		chainsawDamage = config.getInt("chainsawDamage", "Chainsaw", 600, 0, Integer.MAX_VALUE, "The amount of damage the chainsaw does to mobs/players per tick");
+		chainsawDurability = config.getInt("chainsawDurability", "Chainsaw", 6000, 0, Integer.MAX_VALUE, "The amount of damage the chainsaw does to mobs/players per tick");
+		chainsawEnergyUsage = config.getInt("chainsawEnergyUsage", "Chainsaw", 100, 0, Integer.MAX_VALUE, "The amount of RF the chainsaw uses while cutting (half is used while on but not actively cutting)");
+		chainsawMaxEnergy = config.getInt("chainsawMaxEnergy", "Chainsaw", 1000000, 0, Integer.MAX_VALUE, "The maximum amount of RF the chainsaw can store");
+		
 		plantOilIE = config.getBoolean("plantOilIE","Immersive Engineering",true,"If Immersive Engineering is loaded, Coconuts and soybeans make plant oil. This overrides \"moreOil\"");
 		cokeOvenPitch = config.getBoolean("cokeOvenPitch", "Immersive Engineering", true, "If Immersive Engineering is loaded, the coke oven outputs pitch instead of creosote");
 		addCreosoteFluid = config.getBoolean("addCreosoteFluid", "Immersive Engineering", true, "If Immersive Engineering is loaded, a new creosote fluid is added that is obtained by distillation of pitch");
@@ -67,7 +83,7 @@ public class Config {
 	
 	//this must be run in the init phase (after blocks setup but before world gen)
 	public static void reloadOres() {
-		oreList.put("Bauxite", getOreData("Bauxite", "veins", "small", TeloMod.MODID+":bauxiteOre", 0, 35, new String[]{"limestone","dolomite","granite","gneiss","basalt","shale"}, 128, 240, 40, 40));
+		oreList.put("Bauxite", getOreData("Bauxite", "veins", "small", TeloMod.MODID+":bauxiteOre", 0, 100, new String[]{"limestone","dolomite","granite","gneiss","basalt","shale"}, 128, 240, 40, 40));
 		if (config.hasChanged()) config.save();
 	}
 	

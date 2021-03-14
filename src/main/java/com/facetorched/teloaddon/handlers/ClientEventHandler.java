@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 
 public class ClientEventHandler {
 	@SideOnly(Side.CLIENT)
-	@SubscribeEvent()
+	@SubscribeEvent
 	public void textureStich(TextureStitchEvent.Pre event)
 	{
 		if(Loader.isModLoaded("ImmersiveEngineering") && event.map.getTextureType()==0)
