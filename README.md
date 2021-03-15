@@ -9,3 +9,5 @@ The goal is that everything can be turned on/off in the configs to help with mod
 * adds Fluorite Gem that drops from rocks
 * adds misc items and fluids for crafting/processing
 * immersive engineering coke oven creates TFC+ pitch which can be distilled into creosote
+* Chainsaw tool for breaking wood and fending off foes!
+* Compound bow which is a more powerful modern bow
