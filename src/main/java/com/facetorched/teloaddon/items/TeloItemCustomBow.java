@@ -4,6 +4,7 @@ import com.dunk.tfc.Entities.EntityProjectileTFC;
 import com.dunk.tfc.Items.Tools.ItemCustomBow;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Interfaces.ISize;
+import com.facetorched.teloaddon.TeloItemSetup;
 import com.facetorched.teloaddon.TeloMod;
 
 import cpw.mods.fml.relauncher.Side;
@@ -110,6 +111,11 @@ public class TeloItemCustomBow extends ItemCustomBow{
 
 			if (!world.isRemote)
 				world.spawnEntityInWorld(entityarrow);
+		}
+		if(is.getItemDamage() == 0) {
+			int slot = player.inventory.currentItem;
+	        ItemStack stack = new ItemStack(TeloItemSetup.compoundBowFrame, 1);
+	        player.inventory.setInventorySlotContents(slot, stack);
 		}
 	}
 	@Override

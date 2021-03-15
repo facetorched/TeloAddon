@@ -159,7 +159,7 @@ public class TeloItemSetup {
 			compoundBowRiser = registryHelper(new TeloItemTerra(),"Compound_Bow_Riser");
 			compoundBowLimbs = registryHelper(new TeloItemTerra(),"Compound_Bow_Limbs");
 			compoundBowFrame = registryHelper(new TeloItemTerra(),"Compound_Bow_Frame");
-			compoundBow = registryHelper(new TeloItemCustomBow().setDamageMultiplier(1.5f).setSpeedMultiplier(0.5f).setMaxDamage(1000), "Compound_Bow").setTextureName("tools/Compound_Bow");
+			compoundBow = registryHelper(new TeloItemCustomBow().setDamageMultiplier(1.5f).setSpeedMultiplier(0.5f).setMaxDamage(500), "Compound_Bow").setTextureName("tools/Compound_Bow");
 		}
 		//Just some fluid container additions. should be pretty benign
 		oliveOilBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.OLIVEOIL, 250),"Olive_Oil_Bottle");
