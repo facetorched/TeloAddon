@@ -38,6 +38,8 @@ public class ImmersiveEngineering {
     		try {
     			if(Config.cokeOvenPitch)
     				IEContent.fluidCreosote = TFCFluids.PITCH;
+    			//setup compatibility IE items
+    			itemSetup();
     		}
     		catch(Exception e) {
     			TeloLogger.error("preInit compatability for immersive engineering failed with exception: "+ e.getMessage());
@@ -73,9 +75,6 @@ public class ImmersiveEngineering {
     				TEHopper.registerPressableItem(TFCItems.coconutMeat,IEContent.fluidPlantoil,0.64f,10);
     				TEHopper.registerPressableItem(TFCItems.soybean,IEContent.fluidPlantoil,0.64f,10);
     			}
-    			
-    			//setup compatibility IE items
-    			itemSetup();
     			
     			if(Config.cokeOvenPitch && Config.addCreosoteFluid) {
     				//register distillation recipe
