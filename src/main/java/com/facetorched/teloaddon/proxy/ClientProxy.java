@@ -3,6 +3,8 @@ package com.facetorched.teloaddon.proxy;
 import com.dunk.tfc.Render.Item.CompositeBowItemRenderer;
 import com.facetorched.teloaddon.TeloItemSetup;
 import com.facetorched.teloaddon.handlers.ClientEventHandler;
+import com.facetorched.teloaddon.handlers.MouseEventHandler;
+import com.facetorched.teloaddon.handlers.TeloRenderPlayerHandler;
 import com.facetorched.teloaddon.render.ItemRenderChainsaw;
 import com.facetorched.teloaddon.render.TeloTESRIngotPile;
 import com.facetorched.teloaddon.tileentities.TeloTEIngotPile;
@@ -25,6 +27,8 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(TeloItemSetup.compoundBow, new CompositeBowItemRenderer());
         //Minecraft.getMinecraft().mouseHelper = ClientProxy.mouseHelperAI;
         //register entity renderer here
+        MinecraftForge.EVENT_BUS.register(new TeloRenderPlayerHandler());
+        MinecraftForge.EVENT_BUS.register(new MouseEventHandler());
     }
 
     @Override

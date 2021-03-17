@@ -1,9 +1,7 @@
 package com.facetorched.teloaddon;
 
 import com.facetorched.teloaddon.handlers.BlockDropHandler;
-import com.facetorched.teloaddon.handlers.MouseEventHandler;
 import com.facetorched.teloaddon.handlers.TeloChunkEventHandler;
-import com.facetorched.teloaddon.handlers.TeloRenderPlayerHandler;
 import com.facetorched.teloaddon.handlers.network.TeloPacketPipeline;
 import com.facetorched.teloaddon.items.TeloItemHeat;
 import com.facetorched.teloaddon.proxy.IProxy;
@@ -25,7 +23,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class TeloMod
 {
     public static final String MODID = "teloaddon";
-    public static final String VERSION = "1.0.2";
+    public static final String VERSION = "1.0.3";
     
     @SidedProxy(
     	      clientSide="com.facetorched.teloaddon.proxy.ClientProxy", 
@@ -53,9 +51,9 @@ public class TeloMod
     {
     	MinecraftForge.EVENT_BUS.register(new BlockDropHandler());
     	MinecraftForge.EVENT_BUS.register(new TeloChunkEventHandler());
-    	MinecraftForge.EVENT_BUS.register(new TeloRenderPlayerHandler());
+    	
     	//MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());
-    	MinecraftForge.EVENT_BUS.register(new MouseEventHandler());
+    	
     	TeloItemHeat.setupItemHeat();
     	Config.reloadOres();
     	if(Loader.isModLoaded("ImmersiveEngineering"))
