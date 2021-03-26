@@ -20,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 //TODO crate can't store barrel :(
@@ -90,7 +91,7 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 			EntityPlayer p = (EntityPlayer) entity;
 			if(ChainsawNBTHelper.isChainsawRunning(is)){
 				boolean isCutting = false;
-				for(Entity e:TeloRayTracer.boundingEntities(world, p.getPosition(1.0F), p.getLookVec(), 1.0F, 1.0F)) { //1 block reach 1 block radius
+				for(Entity e:TeloRayTracer.boundingEntities(world, Vec3.createVectorHelper(p.posX,p.posY,p.posZ), p.getLookVec(), 1.0F, 1.0F)) { //1 block reach 1 block radius
 					if(!e.equals(p) && e instanceof EntityLiving) {
 						e.attackEntityFrom(DamageSource.causePlayerDamage(p), chainsawDamage);
 						/*

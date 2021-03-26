@@ -112,7 +112,8 @@ public class TeloItemCustomBow extends ItemCustomBow{
 			if (!world.isRemote)
 				world.spawnEntityInWorld(entityarrow);
 		}
-		if(is.getItemDamage() == 0) {
+		// for reasons I don't really understand, the damage is set to zero when it is broken
+		if(is.getItemDamage() == 0 && !player.capabilities.isCreativeMode) {
 			int slot = player.inventory.currentItem;
 	        ItemStack stack = new ItemStack(TeloItemSetup.compoundBowFrame, 1);
 	        player.inventory.setInventorySlotContents(slot, stack);
