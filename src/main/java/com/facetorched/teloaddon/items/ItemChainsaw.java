@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
@@ -92,8 +93,11 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 			if(ChainsawNBTHelper.isChainsawRunning(is)){
 				boolean isCutting = false;
 				for(Entity e:TeloRayTracer.boundingEntities(world, Vec3.createVectorHelper(p.posX,p.posY,p.posZ), p.getLookVec(), 1.0F, 1.0F)) { //1 block reach 1 block radius
-					if(!e.equals(p) && e instanceof EntityLiving) {
-						e.attackEntityFrom(DamageSource.causePlayerDamage(p), chainsawDamage);
+
+					if(e!=p && e instanceof EntityLivingBase) {
+						DamageSource dmgSrc = DamageSource.causePlayerDamage(p);
+						dmgSrc.damageType = "teloChainsaw";
+						e.attackEntityFrom(dmgSrc, chainsawDamage);
 						/*
 						if(ChainsawNBTHelper.getChainsawDurability(is) == 1) {
 							e.playSound("random.break", 1.0f, 1.0f);

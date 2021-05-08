@@ -115,8 +115,9 @@ public class TeloItemSetup {
 			aluminumIngot = registryHelper(new TeloItemIngot(),"Aluminum_Ingot");
 			aluminumSheet = registryHelper((ItemMetalSheet)new TeloItemMetalSheet(20).setMetal("Aluminum", 200),"Aluminum_Sheet");
 			aluminumUnshaped = registryHelper(new TeloItemMeltedMetal().setHasSolidLiquidStates(true).setMaxUnits(100).setCounter(1).setBaseDamage(0),"Aluminum_Unshaped");
-			bauxite = registryHelper(new TeloItemOre().setSmeltable(Config.aluminumSmeltable).setMetalType(ALUMINUM).setSmeltTier(EnumTier.TierIII),"Bauxite");
+			bauxite = registryHelper(new TeloItemOre().setSmeltable(Config.aluminumSmeltable).setSmeltTier(EnumTier.TierIII),"Bauxite");
 			//TODO ore can be melted? new item ore for each? that would mean a new ore block for each?
+			
 			
 			OreDictionary.registerOre("ingotDoubleAluminum",aluminumIngot2x);
 			OreDictionary.registerOre("plateDoubleAluminum",aluminumSheet2x);
@@ -183,10 +184,11 @@ public class TeloItemSetup {
 			creosoteCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(creosote, 1000),"Creosote_Ceramic_Bucket");
 		}
 		
-		registerMetals();
+		registerMetals(); //register metals after I think
 	}
 	
 	public static void registerAnvilRecipes() {
+		// currently not used (just use minetweaker please!)
 		if(Config.addAluminum) {
 			AnvilManager manager = AnvilManager.getInstance();
 			
@@ -202,6 +204,8 @@ public class TeloItemSetup {
 		if(Config.addAluminum) {
 			ALUMINUM = (new Metal("Aluminum", aluminumIngot)).addValidMold(TFCItems.ceramicMold, aluminumUnshaped).addValidPartialMold(aluminumUnshaped, 2, aluminumUnshaped, 1, 2);
 			MetalRegistry.instance.addMetal(ALUMINUM, Alloy.EnumTier.TierV); //crucible
+			
+			((TeloItemOre)(bauxite)).setMetalType(ALUMINUM);
 		}
 	}
 	public static Item registryHelper(Item item, String unlocName) {

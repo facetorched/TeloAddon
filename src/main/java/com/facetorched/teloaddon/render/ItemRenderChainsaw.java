@@ -34,6 +34,7 @@ public class ItemRenderChainsaw implements IItemRenderer{
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		EntityClientPlayerMP player = ClientUtils.mc().thePlayer;
 		boolean running = ChainsawNBTHelper.isChainsawRunning(item);
 		//alternate each tick
 		if(running) {
@@ -66,8 +67,9 @@ public class ItemRenderChainsaw implements IItemRenderer{
 			GL11.glPopMatrix();
 		}
 		//first person should look different!
-		if(type==ItemRenderType.EQUIPPED_FIRST_PERSON)
+		if(type==ItemRenderType.EQUIPPED_FIRST_PERSON && player!=null && player.getHeldItem() == item)
 		{
+			running = ChainsawNBTHelper.isChainsawRunning(player.getHeldItem());
 			
 			GL11.glPushMatrix();
 			//GL11.glScalef(.75f,.75f,.75f);
@@ -86,7 +88,7 @@ public class ItemRenderChainsaw implements IItemRenderer{
 			modelobj.renderAll();
 			GL11.glPopMatrix();
 			
-			EntityClientPlayerMP player = ClientUtils.mc().thePlayer;
+			
 			Render render;
 			RenderPlayer renderplayer;
 			

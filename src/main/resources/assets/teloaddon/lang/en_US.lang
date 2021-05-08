@@ -80,3 +80,6 @@ fluid.telocreosote=Creosote Oil
 tile.bauxiteOre.name=Bauxite
 
 gui.metal.Aluminum=Aluminum
+
+death.attack.teloChainsaw=%s was chainsawed in half
+death.attack.teloChainsaw=%1$s was chainsawed in half by %2$s

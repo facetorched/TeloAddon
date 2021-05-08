@@ -41,6 +41,6 @@ public class TeloRayTracer {
 		ray.xCoord *= len; ray.yCoord *= len; ray.zCoord *= len;
 		ray = ray.addVector(pos.xCoord, pos.yCoord, pos.zCoord);
 		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(ray.xCoord-size, ray.yCoord-size, ray.zCoord-size, ray.xCoord+size, ray.yCoord+size, ray.zCoord+size);
-		return w.getEntitiesWithinAABBExcludingEntity(null, aabb);
+		return w.getEntitiesWithinAABBExcludingEntity(null, aabb); // should just exclude the player?
 	}
 }

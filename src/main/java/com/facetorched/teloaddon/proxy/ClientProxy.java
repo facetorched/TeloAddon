@@ -6,13 +6,16 @@ import com.facetorched.teloaddon.handlers.ClientEventHandler;
 import com.facetorched.teloaddon.handlers.MouseEventHandler;
 import com.facetorched.teloaddon.handlers.TeloRenderPlayerHandler;
 import com.facetorched.teloaddon.render.ItemRenderChainsaw;
+import com.facetorched.teloaddon.render.TeloRenderPlayer;
 import com.facetorched.teloaddon.render.TeloTESRIngotPile;
 import com.facetorched.teloaddon.tileentities.TeloTEIngotPile;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -27,6 +30,7 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(TeloItemSetup.compoundBow, new CompositeBowItemRenderer());
         //Minecraft.getMinecraft().mouseHelper = ClientProxy.mouseHelperAI;
         //register entity renderer here
+        RenderingRegistry.registerEntityRenderingHandler(EntityPlayer.class, new TeloRenderPlayer());
         MinecraftForge.EVENT_BUS.register(new TeloRenderPlayerHandler());
         MinecraftForge.EVENT_BUS.register(new MouseEventHandler());
     }

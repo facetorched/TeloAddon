@@ -10,7 +10,7 @@ public class TeloRenderPlayerHandler {
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Post event) {
 		if(TeloItemSetup.chainsaw != null && ChainsawNBTHelper.isChainsawRunning(event.entityPlayer.getHeldItem())){
-			event.renderer.modelBipedMain.aimedBow = true;
+			//event.renderer.modelBipedMain.aimedBow = true;
 		}
 	}
 }

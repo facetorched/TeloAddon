@@ -3,7 +3,9 @@ package com.facetorched.teloaddon.handlers;
 import java.util.Random;
 
 import com.dunk.tfc.BlockSetup;
+import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.facetorched.teloaddon.TeloItemSetup;
+import com.facetorched.teloaddon.items.TeloItemOre;
 import com.facetorched.teloaddon.util.ChainsawNBTHelper;
 import com.facetorched.teloaddon.util.Config;
 
@@ -57,6 +59,9 @@ public class BlockDropHandler {
 				}
 			}*/
 		}
+		//((TeloItemOre)(TeloItemSetup.bauxite)).setMetalType(TeloItemSetup.ALUMINUM);
+		//System.out.println(((TeloItemOre)(TeloItemSetup.bauxite)).metalType);
+		//System.out.println(TeloItemSetup.ALUMINUM.ingot);
 	}
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {

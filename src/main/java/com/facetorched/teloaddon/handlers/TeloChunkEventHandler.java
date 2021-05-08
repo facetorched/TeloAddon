@@ -13,7 +13,7 @@ public class TeloChunkEventHandler {
 		if (!event.world.isRemote && event.world.provider.dimensionId == 0
 				&& AnvilManager.getInstance().getRecipeList().size() != 0)
 		{
-			TeloItemSetup.registerAnvilRecipes();
+			//TeloItemSetup.registerAnvilRecipes();
 		}
 	}
 }
