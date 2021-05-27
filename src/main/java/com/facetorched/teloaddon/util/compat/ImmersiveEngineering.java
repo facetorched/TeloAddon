@@ -2,20 +2,28 @@ package com.facetorched.teloaddon.util.compat;
 
 import java.util.HashMap;
 
+import com.dunk.tfc.BlockSetup;
+import com.dunk.tfc.Reference;
 import com.dunk.tfc.Core.FluidBaseTFC;
+import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.TileEntities.TEHopper;
+import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Crafting.BarrelFireRecipe;
 import com.dunk.tfc.api.Crafting.BarrelManager;
+import com.facetorched.teloaddon.TeloBlockSetup;
 import com.facetorched.teloaddon.TeloFluidSetup;
 import com.facetorched.teloaddon.TeloItemSetup;
+import com.facetorched.teloaddon.blocks.BlockWindmillBearing;
+import com.facetorched.teloaddon.blocks.TeloBlockAxleBearing;
 import com.facetorched.teloaddon.items.ItemBottle;
 import com.facetorched.teloaddon.items.ItemCeramicBucket;
 import com.facetorched.teloaddon.items.ItemChainsaw;
 import com.facetorched.teloaddon.items.ItemFluidContainer;
 import com.facetorched.teloaddon.items.ItemWoodenBucket;
 import com.facetorched.teloaddon.items.TeloItemTerra;
+import com.facetorched.teloaddon.tileentities.TeloTEAxleBearing;
 import com.facetorched.teloaddon.util.Config;
 import com.facetorched.teloaddon.util.TeloLogger;
 
@@ -24,27 +32,44 @@ import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler;
 import blusunrize.immersiveengineering.common.IEContent;
 import blusunrize.immersiveengineering.common.util.IEPotions;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.ExistingSubstitutionException;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ImmersiveEngineering {
 
     public static void preInit() {
-    	if(Loader.isModLoaded("ImmersiveEngineering")){
-    		try {
-    			if(Config.cokeOvenPitch)
-    				IEContent.fluidCreosote = TFCFluids.PITCH;
-    			//setup compatibility IE items
-    			itemSetup();
-    		}
-    		catch(Exception e) {
-    			TeloLogger.error("preInit compatability for immersive engineering failed with exception: "+ e.getMessage());
-    		}
+		try {
+			if(Config.cokeOvenPitch) {
+				// this is potentially dangerous!!!!
+				// do not use IE creosote containers since they will cause a crash
+				IEContent.fluidCreosote = TFCFluids.PITCH;
+			}
+		}
+		catch(Exception e) {
+    		TeloLogger.error("Reassignment of immersive engineering creosote to tfc pitch failed with exception: "+ e.getMessage());
     	}
+		try {
+			itemSetup();//setup compatibility IE items
+		}
+		catch(Exception e) {
+			TeloLogger.error("item compatability for immersive engineering failed with exception: "+ e.getMessage());
+		}
+		try {
+			blockSetup();//setup compatibility IE blocks
+		}
+		catch(Exception e) {
+			TeloLogger.error("block compatability for immersive engineering failed with exception: "+ e.getMessage());
+		}
+		TeloLogger.info("Finished loading preInit compatability for immersive engineering");
     }
     
 	public static void init() {
@@ -138,6 +163,32 @@ public class ImmersiveEngineering {
 			TeloItemSetup.chainsawToolMaterial = EnumHelper.addToolMaterial("Chainsaw", 3, Config.chainsawDurability, 60, 20, 22);
 			TeloItemSetup.chainsaw = TeloItemSetup.registryHelper(new ItemChainsaw(TeloItemSetup.chainsawToolMaterial,Config.chainsawDamage).setAttackSpeed(30),"Chainsaw").setTextureName("tools/Chainsaw");
 			OreDictionary.registerOre("itemAxeSteel",new ItemStack(TeloItemSetup.chainsaw, 1, OreDictionary.WILDCARD_VALUE));
+		}
+    }
+    public static void blockSetup() {
+    	if(Config.mechanismsDynamoCompat) {
+	    	String registryName = TFCBlocks.woodAxleBearing.getUnlocalizedName().split("\\.")[1];
+	    	BlockSetup.woodAxleBearing = new TeloBlockAxleBearing(Material.wood).setBlockName(registryName).setHardness(0.5F).setResistance(1F);
+			TeloItemSetup.woodAxleBearing = new ItemBlock(BlockSetup.woodAxleBearing); // use a static reference (A dummy variable would work too)
+	    	try {
+	    		GameRegistry.addSubstitutionAlias(Reference.MOD_ID + ":" + registryName, GameRegistry.Type.BLOCK, BlockSetup.woodAxleBearing);
+				GameRegistry.addSubstitutionAlias(Reference.MOD_ID + ":" + registryName, GameRegistry.Type.ITEM, TeloItemSetup.woodAxleBearing);
+			} catch (ExistingSubstitutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	// we need to redefine the crafting recipes cause for whatever reason the item associated with the block registry is null until the world is loaded
+	    	GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV, 1, Recipes.WILD)));
+			GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV2, 1, Recipes.WILD)));
+			GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportH, 1, Recipes.WILD)));
+			GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportH2, 1, Recipes.WILD)));
+			
+			GameRegistry.registerTileEntity(TeloTEAxleBearing.class, "teloAxleBearing");
+    	}
+    	if(Config.mechanismsWindmillCompat) {
+    		//add the windmill bearing
+    		TeloBlockSetup.windmillBearing = new BlockWindmillBearing(Material.wood).setBlockName("windmillBearing").setHardness(0.5F).setResistance(1F);;
+			GameRegistry.registerBlock(TeloBlockSetup.windmillBearing, "windmillBearing");
 		}
     }
 }
