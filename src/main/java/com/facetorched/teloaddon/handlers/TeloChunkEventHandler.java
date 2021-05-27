@@ -1,7 +1,6 @@
 package com.facetorched.teloaddon.handlers;
 
 import com.dunk.tfc.api.Crafting.AnvilManager;
-import com.facetorched.teloaddon.TeloItemSetup;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.world.WorldEvent;
