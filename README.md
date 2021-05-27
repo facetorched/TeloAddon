@@ -11,3 +11,5 @@ The goal is that everything can be turned on/off in the configs to help with mod
 * immersive engineering coke oven creates TFC+ pitch which can be distilled into creosote
 * Chainsaw tool for breaking wood and fending off foes!
 * Compound bow which is a more powerful modern bow
+* Wood Axle Bearing can input power into the Immersive Engineering Kinetic Dynamo
+* Adds a new block called a Windmill Bearing that allows the IE windmill to power mechanisms
