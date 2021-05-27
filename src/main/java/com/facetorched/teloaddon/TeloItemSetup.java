@@ -52,6 +52,7 @@ public class TeloItemSetup {
 	public static Item fluoritePowder;
 	public static Item glassFiber;
 	public static Item lye;
+	public static Item yeast;
 	public static Item fluorite;
 	public static Item oilyMash;
 	public static Item pitchblendePowder;
@@ -85,6 +86,22 @@ public class TeloItemSetup {
 	public static Item ammoniumChlorideBottle;
 	public static Item ammoniumChlorideWoodenBucket;
 	public static Item ammoniumChlorideCeramicBucket;
+	public static Item limewaterBottle;
+	public static Item limewaterWoodenBucket;
+	public static Item limewaterCeramicBucket;
+	public static Item tanninBottle;
+	public static Item tanninWoodenBucket;
+	public static Item tanninCeramicBucket;
+	public static Item waxBottle;
+	public static Item waxWoodenBucket;
+	public static Item waxCeramicBucket;
+	public static Item barleyWaterBottle;
+	public static Item cornWaterBottle;
+	public static Item honeywaterBottle;
+	public static Item potatoWaterBottle;
+	public static Item riceWaterBottle;
+	public static Item ryeWaterBottle;
+	public static Item wheatWaterBottle;
 	
 	public static Item distilledWaterBottle;
 	public static Item distilledWaterWoodenBucket;
@@ -102,6 +119,8 @@ public class TeloItemSetup {
 	public static Item chainsawHousing;
 	public static Item redSteelChainsawChainLink;
 	public static Item blueSteelChainsawChainLink;
+	
+	public static Item woodAxleBearing;
 	
 	public static Metal ALUMINUM;
 	
@@ -149,6 +168,9 @@ public class TeloItemSetup {
 		if (Config.addLye)
 			lye = registryHelper(new TeloItemTerra(),"Lye");
 			potash = registryHelper(new TeloItemTerra(),"Potash");
+		if(Config.addYeast) {
+			yeast = registryHelper(new TeloItemTerra(), "Yeast");
+		}
 		if (Config.addFluids) {
 			leadBottle = registryHelper(new TeloItemTerra(),"Lead_Bottle");
 			hydrofluoricAcidBottle = registryHelper(new ItemLeadBottle().registerContainer(TeloFluidSetup.hydrofluoricAcid, 250),"Hydrofluoric_Acid_Bottle");
@@ -162,17 +184,35 @@ public class TeloItemSetup {
 			compoundBowFrame = registryHelper(new TeloItemTerra(),"Compound_Bow_Frame");
 			compoundBow = registryHelper(new TeloItemCustomBow().setDamageMultiplier(1.5f).setSpeedMultiplier(0.5f).setMaxDamage(500), "Compound_Bow").setTextureName("tools/Compound_Bow");
 		}
-		//Just some fluid container additions. should be pretty benign
-		oliveOilBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.OLIVEOIL, 250),"Olive_Oil_Bottle");
-		oliveOilWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Wooden_Bucket");
-		oliveOilCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Ceramic_Bucket");
-		ammoniumChlorideBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 250),"Ammonium_Chloride_Bottle");
-		ammoniumChlorideWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 1000),"Ammonium_Chloride_Wooden_Bucket");
-		ammoniumChlorideCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 1000),"Ammonium_Chloride_Ceramic_Bucket");
-		distilledWaterBottle = registryHelper(new ItemBottle("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 250),"Distilled_Water_Bottle");
-		distilledWaterWoodenBucket = registryHelper(new ItemCeramicBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Wooden_Bucket");
-		distilledWaterCeramicBucket = registryHelper(new ItemWoodenBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Ceramic_Bucket");
-		
+		//Adding some fluid containers that dunk doesn't want to add himself >:(
+		if(Config.addFluidContainers) {
+			oliveOilBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.OLIVEOIL, 250),"Olive_Oil_Bottle");
+			oliveOilWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Wooden_Bucket");
+			oliveOilCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.OLIVEOIL, 1000),"Olive_Oil_Ceramic_Bucket");
+			ammoniumChlorideBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 250),"Ammonium_Chloride_Bottle");
+			ammoniumChlorideWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 1000),"Ammonium_Chloride_Wooden_Bucket");
+			ammoniumChlorideCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.AMMONIUMCHLORIDE, 1000),"Ammonium_Chloride_Ceramic_Bucket");
+			distilledWaterBottle = registryHelper(new ItemBottle("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 250),"Distilled_Water_Bottle");
+			distilledWaterWoodenBucket = registryHelper(new ItemCeramicBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Wooden_Bucket");
+			distilledWaterCeramicBucket = registryHelper(new ItemWoodenBucket("minecraft:textures/blocks/water_still.png").registerContainer(FluidRegistry.WATER, 1000),"Distilled_Water_Ceramic_Bucket");
+			limewaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.LIMEWATER, 250),"Limewater_Bottle");
+			limewaterWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.LIMEWATER, 1000),"Limewater_Wooden_Bucket");
+			limewaterCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.LIMEWATER, 1000),"Limewater_Ceramic_Bucket");
+			tanninBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.TANNIN, 250),"Tannin_Bottle");
+			tanninWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.TANNIN, 1000),"Tannin_Wooden_Bucket");
+			tanninCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.TANNIN, 1000),"Tannin_Ceramic_Bucket");
+			waxBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.WAX, 250),"Wax_Bottle");
+			waxWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(TFCFluids.WAX, 1000),"Wax_Wooden_Bucket");
+			waxCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(TFCFluids.WAX, 1000),"Wax_Ceramic_Bucket");
+			
+			barleyWaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.BARLEYWATER, 250),"Barley_Water_Bottle");
+			cornWaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.CORNWATER, 250),"Corn_Water_Bottle");
+			honeywaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.HONEYWATER, 250),"Honeywater_Bottle");
+			potatoWaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.POTATOWATER, 250),"Potato_Water_Bottle");
+			riceWaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.RICEWATER, 250),"Rice_Water_Bottle");
+			ryeWaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.RYEWATER, 250),"Rye_Water_Bottle");
+			wheatWaterBottle = registryHelper(new ItemBottle().registerContainer(TFCFluids.WHEATWATER, 250),"Wheat_Water_Bottle");
+		}
 		if(Config.hotspringBucket) {
 			hotspringRedSteelBucket = registryHelper(new TeloItemSteelBucket(BlockSetup.hotWater).setContainerItem(ItemSetup.redSteelBucketEmpty).registerContainer(TFCFluids.HOTWATER,1000),"Hotspring_Red_Steel_Bucket");
 		}
@@ -183,6 +223,8 @@ public class TeloItemSetup {
 			creosoteWoodenBucket = registryHelper(new ItemWoodenBucket().registerContainer(creosote, 1000),"Creosote_Wooden_Bucket");
 			creosoteCeramicBucket = registryHelper(new ItemCeramicBucket().registerContainer(creosote, 1000),"Creosote_Ceramic_Bucket");
 		}
+		
+		
 		
 		registerMetals(); //register metals after I think
 	}
