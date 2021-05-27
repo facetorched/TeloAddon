@@ -19,7 +19,7 @@ public class MouseEventHandler {
 	public void onMouse(MouseEvent event) {
 		if (event.button == 0 && TeloItemSetup.chainsaw != null) {
 			ItemStack held = Minecraft.getMinecraft().thePlayer.getHeldItem();
-			if(ChainsawNBTHelper.setIsChainsawRunning(held, Minecraft.getMinecraft().theWorld, event.buttonstate)){
+			if(ChainsawNBTHelper.setIsChainsawRunning(held, Minecraft.getMinecraft().thePlayer, event.buttonstate)){
 				AbstractPacket pkt = new LeftMousePacket(event.buttonstate);
 				TeloMod.packetPipeline.sendToServer(pkt);
 			}

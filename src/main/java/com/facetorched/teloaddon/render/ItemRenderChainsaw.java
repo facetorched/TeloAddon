@@ -33,6 +33,8 @@ public class ItemRenderChainsaw implements IItemRenderer{
 	}
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
+		
+		
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		EntityClientPlayerMP player = ClientUtils.mc().thePlayer;
 		boolean running = ChainsawNBTHelper.isChainsawRunning(item);
@@ -46,7 +48,6 @@ public class ItemRenderChainsaw implements IItemRenderer{
 		else {
 			modelobj = modelobjs[0];
 		}
-		
 		
 		if(type==ItemRenderType.EQUIPPED) {
 			GL11.glPushMatrix();
@@ -69,9 +70,44 @@ public class ItemRenderChainsaw implements IItemRenderer{
 		//first person should look different!
 		if(type==ItemRenderType.EQUIPPED_FIRST_PERSON && player!=null && player.getHeldItem() == item)
 		{
+			
 			running = ChainsawNBTHelper.isChainsawRunning(player.getHeldItem());
 			
 			GL11.glPushMatrix();
+			
+			/*
+			if(running) {
+				// suppress re-equip animation. this code was copied from
+				// https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/modification-development/2350120-can-i-disable-the-animation-of-item-at-right-click?comment=9
+				ItemRenderer ir = Minecraft.getMinecraft().entityRenderer.itemRenderer;
+				if(ir != null)try {
+					float equippedProgress = 1F;
+					float prevEquippedProgress = 1F;
+					Field field = ItemRenderer.class.getDeclaredField("equippedProgress");
+					field.setAccessible(true);
+					if(field.getFloat(ir) != 1f) {
+						//System.out.print("a");
+						//System.out.println(field.getFloat(ir));
+						equippedProgress = field.getFloat(ir);
+						field.setFloat(ir,1.0F);
+					}
+					field = ItemRenderer.class.getDeclaredField("prevEquippedProgress");
+					field.setAccessible(true);
+					if(field.getFloat(ir)!= 1.0f) {
+						//System.out.print("b");
+						//System.out.println(field.getFloat(ir));
+						prevEquippedProgress = field.getFloat(ir);
+						field.setFloat(ir,1.0F);
+					}
+					float f1 = prevEquippedProgress + (equippedProgress - prevEquippedProgress) * .369F;
+					GL11.glTranslatef(0F, (1.0F - f1) * .6F, 0F);
+					throw new Exception();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			}*/
+			
 			//GL11.glScalef(.75f,.75f,.75f);
 			
 			if(running) {
@@ -121,6 +157,11 @@ public class ItemRenderChainsaw implements IItemRenderer{
 				renderplayer.renderFirstPersonArm(player);
 				GL11.glPopMatrix();
 			}
+			
+			
+			
+			
+			
 		}
 		if(type==ItemRenderType.INVENTORY || type ==ItemRenderType.ENTITY) {
 			GL11.glPushMatrix();

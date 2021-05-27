@@ -14,10 +14,8 @@ import blusunrize.immersiveengineering.common.util.ItemNBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
@@ -25,8 +23,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 //TODO crate can't store barrel :(
-//TODO chainsaw and bow precursor
-//TODO localization
 
 public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 
@@ -75,9 +71,14 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 	}
 	@Override
 	public void onUpdate(ItemStack is, World world, Entity entity, int itemSlot, boolean isSelected) {
+		if (! (entity instanceof EntityPlayer)) {
+			return;
+		}
+		EntityPlayer player = (EntityPlayer)entity;
 		//should we turn the darn thing off?
 		if(!isSelected || !this.hasEnoughEnergy(is,world) || ChainsawNBTHelper.getChainsawDurability(is) <= 0) {
-			ChainsawNBTHelper.setIsChainsawRunning(is, world, false);
+			ChainsawNBTHelper.setIsChainsawRunning(is, player, false);
+			
 			// i use this to delay the break sound since you can't hear it otherwise
 			if(this.getDamage(is) > TeloReference.DURABILITY_BUFFER-2) {
 				super.setDamage(is, this.getDamage(is)-1);
@@ -87,7 +88,7 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 				super.setDamage(is, ChainsawNBTHelper.getChainsawMaxDamage(is));
 			}
 		}
-		else if (entity instanceof EntityPlayer) {
+		else  {
 			
 			EntityPlayer p = (EntityPlayer) entity;
 			if(ChainsawNBTHelper.isChainsawRunning(is)){
@@ -97,13 +98,12 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 					if(e!=p && e instanceof EntityLivingBase) {
 						DamageSource dmgSrc = DamageSource.causePlayerDamage(p);
 						dmgSrc.damageType = "teloChainsaw";
-						e.attackEntityFrom(dmgSrc, chainsawDamage);
-						/*
-						if(ChainsawNBTHelper.getChainsawDurability(is) == 1) {
-							e.playSound("random.break", 1.0f, 1.0f);
+						if(e.attackEntityFrom(dmgSrc, chainsawDamage)) {
+							
+							//keep track of enemies hit to apply damage to the item
+							if(!p.capabilities.isCreativeMode)
+								ItemNBTHelper.modifyInt(is, "hitCount", 1);
 						}
-						this.setDamage(is, this.getDamage(is) + 1);
-						*/
 						isCutting = true;
 					}
 				}
@@ -111,16 +111,15 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 					isCutting = true;
 				}
 				boolean wasCutting = ItemNBTHelper.getBoolean(is, "isCutting");
-				if(isCutting && !wasCutting) {
+				if(isCutting && !wasCutting) { // we just started cutting!
 					ItemNBTHelper.setBoolean(is, "isCutting", true);
 					//extract half energy for time while idle
 					int energy = Config.chainsawEnergyUsage*(int)(world.getWorldTime()-ItemNBTHelper.getLong(is, "tickCheckpoint"))/2;
 					this.extractEnergy(is, energy, false);
 					//set a new checkpoint so that the cutting sound starts this tick
 					ItemNBTHelper.setLong(is, "tickCheckpoint", world.getWorldTime());
-					
 				}
-				else if(wasCutting && !isCutting) {
+				else if(wasCutting && !isCutting) { // we just stopped cutting
 					ItemNBTHelper.setBoolean(is, "isCutting", false);
 					//extract full energy for time while cutting
 					int energy = Config.chainsawEnergyUsage*(int)(world.getWorldTime()-ItemNBTHelper.getLong(is, "tickCheckpoint"));
@@ -152,7 +151,7 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 	}
 	@Override
 	public Entity createEntity(World world, Entity location, ItemStack is) {
-		ChainsawNBTHelper.setIsChainsawRunning(is, world, false);
+		ChainsawNBTHelper.setIsChainsawRunning(is, location, false);
 		return super.createEntity(world, location, is);
 	}
 	@Override
@@ -191,7 +190,6 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 	}
 	@Override
 	public int getMaxEnergyStored(ItemStack is) {
-		// TODO Auto-generated method stub
 		return Config.chainsawMaxEnergy;
 	}
 	public boolean hasEnoughEnergy(ItemStack is, World world){
@@ -205,4 +203,5 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 		}
 		return this.extractEnergy(is, Config.chainsawEnergyUsage, true)==Config.chainsawEnergyUsage;
 	}
+	
 }
