@@ -3,9 +3,7 @@ package com.facetorched.teloaddon.handlers;
 import java.util.Random;
 
 import com.dunk.tfc.BlockSetup;
-import com.dunk.tfc.api.Interfaces.ISmeltable;
 import com.facetorched.teloaddon.TeloItemSetup;
-import com.facetorched.teloaddon.items.TeloItemOre;
 import com.facetorched.teloaddon.util.ChainsawNBTHelper;
 import com.facetorched.teloaddon.util.Config;
 
@@ -52,10 +50,10 @@ public class BlockDropHandler {
 			for (int id : equipIDs)
 			{
 				String name = OreDictionary.getOreName(id);
-				System.out.println(name);
+				//System.out.println(name);
 				if (name.startsWith("itemAxe"))
 				{
-					System.out.println("axe");
+					//System.out.println("axe");
 				}
 			}*/
 		}
@@ -65,9 +63,13 @@ public class BlockDropHandler {
 	}
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if(event.block.equals(Blocks.clay) && Config.clayBlockDropsItself) {
+		if(Config.clayBlockDropsItself && event.block.equals(Blocks.clay)) {
 			event.drops.clear();
 			event.drops.add(new ItemStack(Blocks.clay,1));
+		}
+		if(Config.glowstoneBlockDropsItself && event.block.equals(Blocks.glowstone)) {
+			event.drops.clear();
+			event.drops.add(new ItemStack(Blocks.glowstone,1));
 		}
 	}
 	//Method to get random gem. Modified from tfc src
