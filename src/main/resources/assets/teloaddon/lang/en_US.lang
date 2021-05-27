@@ -20,6 +20,7 @@ item.Fluorite.Exquisite.name=Exquisite Fluorite
 item.Fluorite_Powder.name=Fluorite Powder
 item.Glass_Fiber.name=Glass Fiber
 item.Lye.name=Lye
+item.Yeast.name=Yeast
 item.Fluorite.name=Fluorite
 item.Oily_Mash.name=Oily Mash
 item.Potash.name=Potash
@@ -58,6 +59,22 @@ item.Ammonium_Chloride_Ceramic_Bucket.name=Ammonium Chloride Ceramic Bucket
 item.Distilled_Water_Bottle.name=Distilled Water Bottle
 item.Distilled_Water_Wooden_Bucket.name=Distilled Water Wooden Bucket
 item.Distilled_Water_Ceramic_Bucket.name=Distilled Water Ceramic Bucket
+item.Limewater_Bottle.name=Limewater Bottle
+item.Limewater_Wooden_Bucket.name=Limewater Wooden Bucket
+item.Limewater_Ceramic_Bucket.name=Limewater Ceramic Bucket
+item.Tannin_Bottle.name=Tannin Bottle
+item.Tannin_Wooden_Bucket.name=Tannin Wooden Bucket
+item.Tannin_Ceramic_Bucket.name=Tannin Ceramic Bucket
+item.Wax_Bottle.name=Wax Bottle
+item.Wax_Wooden_Bucket.name=Wax Wooden Bucket
+item.Wax_Ceramic_Bucket.name=Wax Ceramic Bucket
+item.Barley_Water_Bottle.name=Barley Water Bottle
+item.Corn_Water_Bottle.name=Corn Water Bottle
+item.Honeywater_Bottle.name=Honeywater Bottle
+item.Potato_Water_Bottle.name=Potato Water Bottle
+item.Rice_Water_Bottle.name=Rice Water Bottle
+item.Rye_Water_Bottle.name=Rye Water Bottle
+item.Wheat_Water_Bottle.name=Wheat Water Bottle
 
 item.Hotspring_Red_Steel_Bucket.name=Hotspring Red Steel Bucket
 item.Compound_Bow.name=Compound Bow
@@ -78,6 +95,7 @@ fluid.nitroglycerin=Nitroglycerin
 fluid.telocreosote=Creosote Oil
 
 tile.bauxiteOre.name=Bauxite
+tile.windmillBearing.name=Windmill Bearing
 
 gui.metal.Aluminum=Aluminum
 
