@@ -38,7 +38,7 @@ public class LeftMousePacket extends AbstractPacket{
 		
 		// uhhh do the same thing on the server. I think
 		ItemStack held = player.getHeldItem();
-		ChainsawNBTHelper.setIsChainsawRunning(held, player.worldObj, isDown);
+		ChainsawNBTHelper.setIsChainsawRunning(held, player, isDown);
 		
 	}
 
