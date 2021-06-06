@@ -1,5 +1,6 @@
 package com.facetorched.teloaddon.handlers;
 
+import com.dunk.tfc.api.Constant.Global;
 import com.facetorched.teloaddon.TeloItemSetup;
 import com.facetorched.teloaddon.items.ItemChainsaw;
 import com.facetorched.teloaddon.util.Config;
@@ -14,7 +15,7 @@ public class TeloCraftingHandler {
 		if(Config.preventFoodDupe) {
 			ItemStack is = e.crafting;
 			if(is != null && is.hasTagCompound() && is.getTagCompound().hasKey("foodWeight")) {
-				if(is.getTagCompound().getFloat("foodWeight") > 161.0f) { //slight buffer
+				if(is.getTagCompound().getFloat("foodWeight") > Global.FOOD_MAX_WEIGHT + 1f) { //slight buffer
 					is.getTagCompound().setFloat("foodDecay", 10000.0f);
 	    		
 	    		//System.out.println(is.getTagCompound());
