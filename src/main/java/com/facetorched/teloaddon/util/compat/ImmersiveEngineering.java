@@ -174,7 +174,8 @@ public class ImmersiveEngineering {
 	    		GameRegistry.addSubstitutionAlias(Reference.MOD_ID + ":" + registryName, GameRegistry.Type.BLOCK, BlockSetup.woodAxleBearing);
 				GameRegistry.addSubstitutionAlias(Reference.MOD_ID + ":" + registryName, GameRegistry.Type.ITEM, TeloItemSetup.woodAxleBearing);
 			} catch (ExistingSubstitutionException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 	    	// we need to redefine the crafting recipes cause for whatever reason the item associated with the block registry is null until the world is loaded
