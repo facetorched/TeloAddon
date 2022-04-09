@@ -2,7 +2,6 @@ package com.facetorched.teloaddon;
 
 import com.facetorched.teloaddon.handlers.BlockDropHandler;
 import com.facetorched.teloaddon.handlers.TeloChunkEventHandler;
-import com.facetorched.teloaddon.handlers.TeloCraftingHandler;
 import com.facetorched.teloaddon.handlers.network.TeloPacketPipeline;
 import com.facetorched.teloaddon.items.TeloItemHeat;
 import com.facetorched.teloaddon.proxy.IProxy;
@@ -10,7 +9,6 @@ import com.facetorched.teloaddon.util.Config;
 import com.facetorched.teloaddon.util.compat.ImmersiveEngineering;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -53,7 +51,6 @@ public class TeloMod
     {
     	MinecraftForge.EVENT_BUS.register(new BlockDropHandler());
     	MinecraftForge.EVENT_BUS.register(new TeloChunkEventHandler());
-    	FMLCommonHandler.instance().bus().register(new TeloCraftingHandler());
     	
     	TeloItemHeat.setupItemHeat();
     	Config.reloadOres();
