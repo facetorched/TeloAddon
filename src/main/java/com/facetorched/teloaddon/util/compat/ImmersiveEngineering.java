@@ -162,7 +162,8 @@ public class ImmersiveEngineering {
 			//name,mining level,durability,miningspeed,attack,enchantability
 			TeloItemSetup.chainsawToolMaterial = EnumHelper.addToolMaterial("Chainsaw", 3, Config.chainsawDurability, 60, 20, 22);
 			TeloItemSetup.chainsaw = TeloItemSetup.registryHelper(new ItemChainsaw(TeloItemSetup.chainsawToolMaterial,Config.chainsawDamage).setAttackSpeed(30),"Chainsaw").setTextureName("tools/Chainsaw");
-			OreDictionary.registerOre("itemAxeSteel",new ItemStack(TeloItemSetup.chainsaw, 1, OreDictionary.WILDCARD_VALUE));
+			OreDictionary.registerOre("itemAxeBlueSteel",new ItemStack(TeloItemSetup.chainsaw, 1, OreDictionary.WILDCARD_VALUE));
+			OreDictionary.registerOre("itemAxeRedSteel",new ItemStack(TeloItemSetup.chainsaw, 1, OreDictionary.WILDCARD_VALUE));
 		}
     }
     public static void blockSetup() {
