@@ -12,7 +12,9 @@ public class TeloBlockSetup {
 	
 	public static Block ingotPile;
 	public static Block bauxite;
-	public static Block windmillBearing;
+	public static Block engineersBearing;
+	
+	public static int renderIDTeloAxleBearing;
 	
 	public static void loadBlocks() {
 		ingotPile = new TeloBlockIngotPile().setBlockName("teloIngotPile").setHardness(3);

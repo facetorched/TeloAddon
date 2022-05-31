@@ -9,6 +9,7 @@ import com.dunk.tfc.TileEntities.TERotator;
 import com.dunk.tfc.TileEntities.TEWaterWheel;
 import com.facetorched.teloaddon.util.Config;
 
+import blusunrize.immersiveengineering.common.blocks.metal.TileEntityDynamo;
 import blusunrize.immersiveengineering.common.blocks.wooden.TileEntityWindmill;
 import blusunrize.immersiveengineering.common.blocks.wooden.TileEntityWindmillAdvanced;
 import cpw.mods.fml.relauncher.Side;
@@ -16,13 +17,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 
 //unfortunately need to extend TEWaterWheel because of hard-coded "instanceof" in rotator class
-public class TEWindmillBearing extends TEWaterWheel{ 
+public class TEEngineersBearing extends TEWaterWheel{ 
 	boolean overloaded;
 	protected HashMap<Integer, Object> rotatorMap;
 	protected float maxLoad;
-	public TEWindmillBearing(){
+	public TEEngineersBearing(){
 		super();
 		maxLoad = 0f;
 		this.hasAxle = false;
@@ -31,6 +33,9 @@ public class TEWindmillBearing extends TEWaterWheel{
 	}
 	@Override
 	public void updateEntity(){
+		if(!Config.mechanismsWindmillCompat) {
+			return;
+		}
 		float maxSpin = 1f;
 		if (!powered || overloaded)
 		{
@@ -335,6 +340,14 @@ public class TEWindmillBearing extends TEWaterWheel{
 						}
 					}
 				}
+				/*
+				ForgeDirection oppdir = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[ddir]);
+				TileEntity oppte = worldObj.getTileEntity(xCoord + oppdir.offsetX, yCoord + oppdir.offsetY, zCoord + oppdir.offsetZ);
+				if(!(oppte instanceof TERotator)) {
+					getLoad(this, false, 1f);
+				
+				}
+				*/
 			}
 		}
 		if (spin == 0 && !powered)
@@ -356,5 +369,63 @@ public class TEWindmillBearing extends TEWaterWheel{
 	public AxisAlignedBB getRenderBoundingBox()
 	{
 		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+	}
+	
+	@Override
+	public float getLoad(TERotator carrier, boolean flipParity, float speedMultiplier){
+		if(! Config.mechanismsDynamoCompat) {
+			return super.getLoad(carrier, flipParity, speedMultiplier);
+		}
+		//System.out.println(flipParity);
+		float extraLoad = 0;
+		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		int dir = BlockAxleBearing.getDirectionFromMetadata(meta);
+		//System.out.println(dir);
+		//Find out if there is an IE dynamo nearby. this method may need some improvement
+		Integer ddir = null;
+		TileEntity te = null;
+		if(hasAxle()) {
+			if(dir == 0){
+				if(te == null) {
+					TileEntity tetest = worldObj.getTileEntity(xCoord-1, yCoord, zCoord);
+					if(tetest != null && tetest instanceof TileEntityDynamo){
+						ddir = 4; //west
+						te = tetest;
+					}
+				}
+				if(te == null) {
+					TileEntity tetest = worldObj.getTileEntity(xCoord+1, yCoord, zCoord);
+					if(tetest != null && tetest instanceof TileEntityDynamo){
+						ddir = 5; //east
+						te = tetest;
+					}
+				}
+			}
+			else if(dir == 1) {
+				if(te == null) {
+					TileEntity tetest = worldObj.getTileEntity(xCoord, yCoord, zCoord-1);
+					if(tetest != null && tetest instanceof TileEntityDynamo){
+						ddir = 2; //north
+						te = tetest;
+					}
+				}
+				if(te == null) {
+					TileEntity tetest = worldObj.getTileEntity(xCoord, yCoord, zCoord+1);
+					if(tetest != null && tetest instanceof TileEntityDynamo){
+						ddir = 3; //south
+						te = tetest;
+					}
+				}
+			}
+			if(ddir != null && te != null) {
+				TileEntityDynamo ted = (TileEntityDynamo)te;
+				ted.inputRotation(Config.mechanismsDynamoPowerFactor * Math.abs(this.getSpin()), ddir);
+				//System.out.println(speedMultiplier);
+				
+				extraLoad = Config.mechanismsDynamoLoadFactor * (float)Math.pow(speedMultiplier, Config.mechanismsDynamoLoadExponent);
+				//System.out.println(extraLoad);
+			}
+		}
+		return extraLoad + super.getLoad(carrier, flipParity, speedMultiplier);
 	}
 }

@@ -1,13 +1,10 @@
 package com.facetorched.teloaddon.util.compat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.dunk.tfc.BlockSetup;
-import com.dunk.tfc.Reference;
 import com.dunk.tfc.Core.FluidBaseTFC;
-import com.dunk.tfc.Core.Recipes;
 import com.dunk.tfc.TileEntities.TEHopper;
-import com.dunk.tfc.api.TFCBlocks;
 import com.dunk.tfc.api.TFCFluids;
 import com.dunk.tfc.api.TFCItems;
 import com.dunk.tfc.api.Crafting.BarrelFireRecipe;
@@ -15,34 +12,35 @@ import com.dunk.tfc.api.Crafting.BarrelManager;
 import com.facetorched.teloaddon.TeloBlockSetup;
 import com.facetorched.teloaddon.TeloFluidSetup;
 import com.facetorched.teloaddon.TeloItemSetup;
-import com.facetorched.teloaddon.blocks.BlockWindmillBearing;
-import com.facetorched.teloaddon.blocks.TeloBlockAxleBearing;
+import com.facetorched.teloaddon.blocks.BlockEngineersBearing;
 import com.facetorched.teloaddon.items.ItemBottle;
 import com.facetorched.teloaddon.items.ItemCeramicBucket;
 import com.facetorched.teloaddon.items.ItemChainsaw;
 import com.facetorched.teloaddon.items.ItemFluidContainer;
 import com.facetorched.teloaddon.items.ItemWoodenBucket;
 import com.facetorched.teloaddon.items.TeloItemTerra;
-import com.facetorched.teloaddon.tileentities.TeloTEAxleBearing;
 import com.facetorched.teloaddon.util.Config;
 import com.facetorched.teloaddon.util.TeloLogger;
 
+import blusunrize.immersiveengineering.api.ManualHelper;
 import blusunrize.immersiveengineering.api.energy.DieselHandler;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler;
 import blusunrize.immersiveengineering.common.IEContent;
 import blusunrize.immersiveengineering.common.util.IEPotions;
+import blusunrize.lib.manual.IManualPage;
+import blusunrize.lib.manual.ManualInstance;
+import blusunrize.lib.manual.ManualInstance.ManualEntry;
+import blusunrize.lib.manual.ManualPages;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.ExistingSubstitutionException;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import scala.actors.threadpool.Arrays;
 
 public class ImmersiveEngineering {
 
@@ -167,30 +165,38 @@ public class ImmersiveEngineering {
 		}
     }
     public static void blockSetup() {
-    	if(Config.mechanismsDynamoCompat) {
-	    	String registryName = TFCBlocks.woodAxleBearing.getUnlocalizedName().split("\\.")[1];
-	    	BlockSetup.woodAxleBearing = new TeloBlockAxleBearing(Material.wood).setBlockName(registryName).setHardness(0.5F).setResistance(1F);
-			TeloItemSetup.woodAxleBearing = new ItemBlock(BlockSetup.woodAxleBearing); // use a static reference (A dummy variable would work too)
-	    	try {
-	    		GameRegistry.addSubstitutionAlias(Reference.MOD_ID + ":" + registryName, GameRegistry.Type.BLOCK, BlockSetup.woodAxleBearing);
-				GameRegistry.addSubstitutionAlias(Reference.MOD_ID + ":" + registryName, GameRegistry.Type.ITEM, TeloItemSetup.woodAxleBearing);
-			} catch (ExistingSubstitutionException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-	    	// we need to redefine the crafting recipes cause for whatever reason the item associated with the block registry is null until the world is loaded
-	    	GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV, 1, Recipes.WILD)));
-			GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportV2, 1, Recipes.WILD)));
-			GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportH, 1, Recipes.WILD)));
-			GameRegistry.addRecipe(new ShapedOreRecipe(TeloItemSetup.woodAxleBearing, " S ", "L L", " S ", 'L', "woodLumber", 'S', new ItemStack(TFCBlocks.woodSupportH2, 1, Recipes.WILD)));
-			
-			GameRegistry.registerTileEntity(TeloTEAxleBearing.class, "teloAxleBearing");
-    	}
-    	if(Config.mechanismsWindmillCompat) {
+    	if(Config.mechanismsDynamoCompat || Config.mechanismsWindmillCompat) {
     		//add the windmill bearing
-    		TeloBlockSetup.windmillBearing = new BlockWindmillBearing(Material.wood).setBlockName("windmillBearing").setHardness(0.5F).setResistance(1F);;
-			GameRegistry.registerBlock(TeloBlockSetup.windmillBearing, "windmillBearing");
+    		TeloBlockSetup.engineersBearing = new BlockEngineersBearing(Material.wood).setBlockName("engineersBearing").setHardness(0.5F).setResistance(1F);;
+			GameRegistry.registerBlock(TeloBlockSetup.engineersBearing, "engineersBearing");
 		}
+    }
+    public static void addManualEntries() {
+    	ManualInstance manual = ManualHelper.getManual();
+    	
+    	if(Config.mechanismsDynamoCompat || Config.mechanismsWindmillCompat) {
+	    	ArrayList<IManualPage> mp = new ArrayList<IManualPage>();
+	    	if(Config.mechanismsDynamoCompat)
+	    		mp.add(new ManualPages.Crafting(manual, "mechanismsDynamoCompat", new ItemStack(TeloBlockSetup.engineersBearing)));
+	    	if(Config.mechanismsWindmillCompat)
+	    		mp.add(new ManualPages.Crafting(manual, "mechanismsWindmillCompat", new ItemStack(TeloBlockSetup.engineersBearing)));
+	    	
+	    	manual.addEntry("engineersBearing", "terrafirmacraftplus", mp.toArray(new IManualPage[mp.size()]));
+    	}
+    	
+    	if(Config.addChainsaw) {
+    		manual.addEntry("chainsaw", "terrafirmacraftplus", new ManualPages.Crafting(manual, "chainsaw0", new ItemStack(TeloItemSetup.chainsaw)));
+    	}
+    	
+    	/*
+    	ManualEntry me = manual.getEntry("generator");
+    	if(me != null) {
+    		@SuppressWarnings("unchecked")
+			ArrayList<IManualPage> mp = new ArrayList<IManualPage>(Arrays.asList(me.getPages()));
+    		mp.add(1, new ManualPages.Crafting(manual, "windmillBearing", new ItemStack(TeloBlockSetup.windmillBearing)));
+    		IManualPage[] mparr = new IManualPage[mp.size()];
+    		me.setPages(mp.toArray(mparr));
+    	}
+    	*/
     }
 }
