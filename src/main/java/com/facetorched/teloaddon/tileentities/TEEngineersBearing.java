@@ -11,13 +11,10 @@ import com.facetorched.teloaddon.util.Config;
 
 import blusunrize.immersiveengineering.common.blocks.metal.TileEntityDynamo;
 import blusunrize.immersiveengineering.common.blocks.wooden.TileEntityWindmill;
-import blusunrize.immersiveengineering.common.blocks.wooden.TileEntityWindmillAdvanced;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 //unfortunately need to extend TEWaterWheel because of hard-coded "instanceof" in rotator class
 public class TEEngineersBearing extends TEWaterWheel{ 

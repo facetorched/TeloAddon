@@ -43,7 +43,6 @@ public class Config {
 	public static boolean clayBlockDropsItself = true;
 	public static boolean glowstoneBlockDropsItself = true;
 	public static boolean addFluidContainers = true;
-	public static boolean preventFoodDupe = true;
 	public static int chainsawDamage;
 	public static int chainsawDurability;
 	public static int chainsawEnergyUsage;
@@ -78,7 +77,6 @@ public class Config {
 		clayBlockDropsItself = config.getBoolean("clayBlockDropsItself", "Items", true, "Set to false for normal drops while breaking vanilla clay block");
 		glowstoneBlockDropsItself = config.getBoolean("glowstoneBlockDropsItself", "Items", true, "Set to false for normal drops while breaking vanilla glowstone block");
 		addFluidContainers = config.getBoolean("addFluidContainers", "Items", true, "Set to false to prevent missing TFC+ fluid containers from being added to the game");
-		preventFoodDupe = config.getBoolean("preventFoodDupe", "Items", true, "Set to false to allow duping of food items in any crafting interface other than inventory crafting");
 		
 		addChainsaw = config.getBoolean("addChainsaw", "Chainsaw", true, "Set to false to prevent Chainsaw related items from being added to the game. If true, the chainsaw requires Immersive Engineering!");
 		chainsawDamage = config.getInt("chainsawDamage", "Chainsaw", 600, 0, Integer.MAX_VALUE, "The amount of damage the chainsaw does to mobs/players per hit");

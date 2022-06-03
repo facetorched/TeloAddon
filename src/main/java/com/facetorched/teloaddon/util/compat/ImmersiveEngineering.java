@@ -29,7 +29,6 @@ import blusunrize.immersiveengineering.common.IEContent;
 import blusunrize.immersiveengineering.common.util.IEPotions;
 import blusunrize.lib.manual.IManualPage;
 import blusunrize.lib.manual.ManualInstance;
-import blusunrize.lib.manual.ManualInstance.ManualEntry;
 import blusunrize.lib.manual.ManualPages;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -40,7 +39,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import scala.actors.threadpool.Arrays;
 
 public class ImmersiveEngineering {
 
