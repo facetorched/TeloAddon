@@ -23,7 +23,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class TeloMod
 {
     public static final String MODID = "teloaddon";
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "1.1.1";
     
     @SidedProxy(
     	      clientSide="com.facetorched.teloaddon.proxy.ClientProxy", 
