@@ -12,6 +12,8 @@ import com.facetorched.teloaddon.util.TeloRayTracer;
 
 import blusunrize.immersiveengineering.common.util.ItemNBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,15 +34,18 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 		this.chainsawDamage = chainsawDamage;
 		this.setMaxDamage(this.getMaxDamage()+TeloReference.DURABILITY_BUFFER);
 	}
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack is) {
 		return 1.0 - ((double)ChainsawNBTHelper.getChainsawDurability(is)) / ChainsawNBTHelper.getChainsawMaxDamage(is);
 	}
+	
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(IIconRegister register)
-	{
+	public void registerIcons(IIconRegister register){
 		this.itemIcon = register.registerIcon(TeloMod.MODID+":"+getIconString());
 	}
+	
 	@Override
 	public void setDamage(ItemStack is, int damage) {
 		if(damage < ChainsawNBTHelper.getChainsawMaxDamage(is)) {
@@ -53,12 +58,13 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 			super.setDamage(is, ChainsawNBTHelper.getChainsawMaxDamage(is));
 		}
 	}
+	
 	@Override
-	public boolean onEntitySwing(EntityLivingBase entity, ItemStack is)
-	{
+	public boolean onEntitySwing(EntityLivingBase entity, ItemStack is){
 		//we don't want to swing the chainsaw!
 		return true;
 	}
+	
 	@Override
 	public boolean onBlockStartBreak(ItemStack is, int x, int y, int z, EntityPlayer player) {
 		if(ChainsawNBTHelper.isChainsawRunning(is)) {
@@ -69,9 +75,10 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 		}
 		return true; //cancel the break!
 	}
+	
 	@Override
 	public void onUpdate(ItemStack is, World world, Entity entity, int itemSlot, boolean isSelected) {
-		if (! (entity instanceof EntityPlayer)) {
+		if (!(entity instanceof EntityPlayer)) {
 			return;
 		}
 		EntityPlayer player = (EntityPlayer)entity;
@@ -89,7 +96,6 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 			}
 		}
 		else  {
-			
 			EntityPlayer p = (EntityPlayer) entity;
 			if(ChainsawNBTHelper.isChainsawRunning(is)){
 				boolean isCutting = false;
@@ -140,6 +146,7 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 			}
 		}
 	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List list, boolean adv)
@@ -149,18 +156,20 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 			list.add(StatCollector.translateToLocalFormatted("desc.ImmersiveEngineering.info.energyStored", stored));
 		}
 	}
+	
 	@Override
 	public Entity createEntity(World world, Entity location, ItemStack is) {
 		ChainsawNBTHelper.setIsChainsawRunning(is, location, false);
 		return super.createEntity(world, location, is);
 	}
+	
 	@Override
 	public boolean hasCustomEntity(ItemStack is) {
 		return true;
 	}
+	
 	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate)
-	{
+	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate){
 		int stored = getEnergyStored(container);
 		int accepted = Math.min(maxReceive, getMaxEnergyStored(container)-stored);
 		if(!simulate)
@@ -170,6 +179,7 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 		}
 		return accepted;
 	}
+	
 	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate)
 	{
@@ -184,14 +194,15 @@ public class ItemChainsaw extends ItemCustomAxe implements IEnergyContainerItem{
 	}
 
 	@Override
-	public int getEnergyStored(ItemStack container)
-	{
+	public int getEnergyStored(ItemStack container){
 		return ItemNBTHelper.getInt(container, "energy");
 	}
+	
 	@Override
 	public int getMaxEnergyStored(ItemStack is) {
 		return Config.chainsawMaxEnergy;
 	}
+	
 	public boolean hasEnoughEnergy(ItemStack is, World world){
 		// energy per tick
 		if(ItemNBTHelper.getBoolean(is, "isRunning")) {

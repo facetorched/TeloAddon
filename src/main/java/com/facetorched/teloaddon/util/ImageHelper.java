@@ -2,7 +2,6 @@ package com.facetorched.teloaddon.util;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
 import java.io.IOException;
 import java.io.InputStream;
 
