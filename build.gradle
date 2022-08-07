@@ -61,3 +61,30 @@ processResources
         exclude 'mcmod.info'
     }
 }
+
+tasks.build.dependsOn('sourcesJar', 'deobfJar')
+
+task sourcesJar(type: Jar) {
+    from "LICENSE"
+    from sourceSets.main.allSource
+    classifier = 'src'
+}
+
+task deobfJar(type: Jar) {
+    from "LICENSE"
+    from sourceSets.main.output
+    from (sourceSets.main.allSource.srcDirs) {
+        include '**/*.java'
+    }
+    classifier = 'deobf'
+}
+
+jar {
+    from "LICENSE"
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives deobfJar
+}
